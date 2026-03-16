@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NICT Computer Education — Prayagraj</title>
+<meta name="description" content="NICT Computer Education Prayagraj — ADCA, DCA, CCC, O Level, Tally. NIELIT affiliated."/>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Syne:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" media="print" onload="this.media='all'"/>
+<style>
+/* ═══════════════════════════════════════════════════
+   NICT Computer Education — Premium UI
+   Fonts: Playfair Display · Syne · Inter · JetBrains
+   Theme: Deep Navy · Electric Orange · Gold
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  /* Colors */
+  --navy:        #04101f;
+  --navy2:       #071828;
+  --navy3:       #0b2040;
+  --blue:        #1a52c9;
+  --blue2:       #2563eb;
+  --orange:      #e8650a;
+  --orange2:     #f97316;
+  --gold:        #f59e0b;
+  --gold2:       #fbbf24;
+  --white:       #ffffff;
+  --off:         #f8fafd;
+  --gray:        #f0f4fb;
+  --gray2:       #e2e8f4;
+  --text:        #0c1a30;
+  --text2:       #2d4060;
+  --muted:       #6b7fa3;
+  --border:      rgba(203,213,230,0.8);
+  --border-dark: rgba(255,255,255,0.07);
+
+  /* Shadows */
+  --s1: 0 2px 12px rgba(10,25,50,.08);
+  --s2: 0 8px 32px rgba(10,25,50,.13);
+  --s3: 0 20px 60px rgba(10,25,50,.18);
+  --s4: 0 32px 100px rgba(10,25,50,.24);
+  --sg: 0 0 40px rgba(232,101,10,.35);
+  --sb: 0 0 40px rgba(26,82,201,.35);
+
+  /* Radius */
+  --r:   14px;
+  --rl:  22px;
+  --rx:  32px;
+
+  /* Fonts */
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans:  'Syne', system-ui, sans-serif;
+  --body:  'Inter', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', monospace;
+
+  --transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--body), 'system-ui', -apple-system, sans-serif; background: var(--white);
+  color: var(--text); overflow-x: hidden; cursor: none;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { cursor: none; font-family: var(--body); }
+
+/* ── UTILS ── */
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+.page { display: none; }
+.page.active { display: block; animation: pageIn .5s cubic-bezier(.22,.68,0,1.1) both; }
+@keyframes pageIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+
+/* ══════════════════════════════════
+   CUSTOM CURSOR
+══════════════════════════════════ */
+.c-dot {
+  width: 8px; height: 8px; background: var(--orange);
+  border-radius: 50%; position: fixed; z-index: 99999;
+  pointer-events: none; transform: translate(-50%,-50%);
+  transition: width .15s, height .15s, background .2s;
+}
+.c-ring {
+  width: 38px; height: 38px;
+  border: 2px solid rgba(232,101,10,.45);
+  border-radius: 50%; position: fixed; z-index: 99998;
+  pointer-events: none; transform: translate(-50%,-50%);
+  transition: width .18s, height .18s, border-color .2s, background .2s;
+}
+body.ch .c-dot  { width: 14px; height: 14px; background: var(--blue2); }
+body.ch .c-ring { width: 52px; height: 52px; border-color: rgba(26,82,201,.5); background: rgba(26,82,201,.06); }
+@media (max-width: 900px) { .c-dot, .c-ring { display: none; } }
+
+/* ══════════════════════════════════
+   SCROLL PROGRESS
+══════════════════════════════════ */
+#scrollProg {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--orange), var(--gold), var(--blue2));
+  pointer-events: none; transition: width .1s;
+}
+
+/* ══════════════════════════════════
+   NAVBAR
+══════════════════════════════════ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(4,16,31,.93);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  transition: var(--transition);
+}
+.navbar.scrolled {
+  background: rgba(4,16,31,.98);
+  border-bottom-color: rgba(232,101,10,.25);
+  box-shadow: 0 4px 40px rgba(0,0,0,.5);
+}
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 28px; height: 72px;
+  display: flex; align-items: center; gap: 16px;
+}
+.nav-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-logo-img { height: 50px; width: auto; }
+.nav-brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+.nbt-main { font-family: var(--sans); font-size: 17px; font-weight: 800; color: white; letter-spacing: .5px; }
+.nbt-sub  { font-size: 9px; color: var(--orange2); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+
+.nav-links { display: flex; list-style: none; gap: 2px; margin-left: auto; }
+.nav-link {
+  display: block; padding: 8px 14px; border-radius: 9px;
+  color: rgba(255,255,255,.65); font-family: var(--sans); font-size: 14px; font-weight: 500;
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: 4px; left: 50%; width: 0; height: 2px;
+  background: var(--orange2); border-radius: 1px;
+  transition: width .3s, left .3s;
+  transform: translateX(-50%);
+}
+.nav-link:hover, .nav-link.active { color: white; }
+.nav-link.active::after, .nav-link:hover::after { width: 50%; }
+.nav-link.active { color: var(--orange2); }
+
+.nav-enroll {
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white; border: none; padding: 10px 22px; border-radius: 9px;
+  font-family: var(--sans); font-size: 14px; font-weight: 700;
+  transition: var(--transition); flex-shrink: 0; position: relative; overflow: hidden;
+}
+.nav-enroll::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+  transform: translateX(-100%) skewX(-20deg);
+  animation: shine 2.8s ease-in-out infinite;
+}
+@keyframes shine { 0%,100% { transform: translateX(-100%) skewX(-20deg); } 50% { transform: translateX(200%) skewX(-20deg); } }
+.nav-enroll:hover { transform: translateY(-2px); box-shadow: var(--sg); }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; padding: 6px; margin-left: auto;
+}
+.hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: all .3s; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+/* Mobile menu */
+.mob-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.7);
+  z-index: 900; opacity: 0; pointer-events: none;
+  transition: opacity .3s; backdrop-filter: blur(6px);
+}
+.mob-overlay.show { opacity: 1; pointer-events: all; }
+.mob-drawer {
+  position: fixed; top: 0; right: -290px; width: 270px; height: 100vh;
+  background: var(--navy2); border-left: 1px solid rgba(255,255,255,.08);
+  z-index: 950; transition: right .32s cubic-bezier(.25,.8,.25,1);
+  display: flex; flex-direction: column; overflow-y: auto;
+}
+.mob-drawer.open { right: 0; box-shadow: -8px 0 40px rgba(0,0,0,.5); }
+
+/* Drawer header */
+.mob-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 16px 14px; border-bottom: 1px solid rgba(255,255,255,.07);
+  flex-shrink: 0;
+}
+.mob-logo { height: 44px; width: auto; }
+.mob-close {
+  width: 34px; height: 34px; border-radius: 8px; border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.07); color: white; font-size: 16px;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: var(--transition); flex-shrink: 0;
+}
+.mob-close:hover { background: var(--orange); border-color: var(--orange); }
+
+/* Drawer links */
+.mob-links { display: flex; flex-direction: column; gap: 2px; padding: 12px 12px 0; flex: 1; }
+.mob-link {
+  display: block; padding: 12px 14px; border-radius: 10px;
+  color: rgba(255,255,255,.72); font-family: var(--sans); font-weight: 500;
+  font-size: 15px; transition: var(--transition); border: 1px solid transparent;
+}
+.mob-link:hover, .mob-link:active {
+  background: rgba(232,101,10,.12); color: white;
+  border-color: rgba(232,101,10,.2); padding-left: 18px;
+}
+
+/* Drawer footer */
+.mob-footer { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,.07); flex-shrink: 0; }
+.mob-enroll {
+  width: 100%; padding: 13px; border-radius: 10px; border: none; margin-bottom: 14px;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white; font-family: var(--sans); font-weight: 700; font-size: 15px;
+  cursor: pointer; transition: var(--transition);
+}
+.mob-enroll:hover { box-shadow: var(--sg); transform: translateY(-1px); }
+.mob-contact { display: flex; flex-direction: column; gap: 8px; }
+.mob-contact a {
+  display: block; font-size: 13px; color: rgba(255,255,255,.5);
+  padding: 4px 0; transition: color .2s;
+}
+.mob-contact a:hover { color: var(--orange2); }
+
+/* ══════════════════════════════════
+   TYPOGRAPHY SYSTEM
+══════════════════════════════════ */
+.slabel {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--sans); font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--orange); padding: 5px 14px; border-radius: 20px;
+  background: rgba(232,101,10,.08); border: 1px solid rgba(232,101,10,.22);
+  margin-bottom: 14px;
+}
+.slabel.lt { color: var(--orange2); background: rgba(232,101,10,.15); border-color: rgba(232,101,10,.3); }
+
+.stitle {
+  font-family: var(--serif); font-size: clamp(28px,3.8vw,46px);
+  font-weight: 700; color: var(--text); line-height: 1.15; margin-bottom: 18px;
+}
+.stitle.lt { color: white; }
+.stitle em { font-style: italic; color: var(--orange); }
+.stitle strong { font-style: normal; }
+
+.grad { background: linear-gradient(135deg, var(--orange), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+.ssub { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 560px; }
+.ssub.lt { color: rgba(255,255,255,.58); }
+
+/* ══════════════════════════════════
+   BUTTONS
+══════════════════════════════════ */
+.btn-pr {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white; border: none; padding: 14px 30px; border-radius: 11px;
+  font-family: var(--sans); font-size: 15px; font-weight: 700;
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.btn-pr::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--orange2), var(--gold)); opacity: 0; transition: opacity .3s; }
+.btn-pr:hover { transform: translateY(-3px); box-shadow: var(--sg); }
+.btn-pr:hover::after { opacity: 1; }
+.btn-pr span, .btn-pr svg { position: relative; z-index: 1; }
+.btn-pr.sm { padding: 10px 22px; font-size: 13px; border-radius: 9px; }
+
+.btn-sec {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: white;
+  border: 1.5px solid rgba(255,255,255,.3); padding: 13px 28px; border-radius: 11px;
+  font-family: var(--sans); font-size: 15px; font-weight: 600;
+  transition: var(--transition);
+}
+.btn-sec:hover { border-color: var(--orange2); color: var(--orange2); background: rgba(232,101,10,.06); transform: translateY(-2px); }
+
+.btn-dk {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.07); color: white;
+  border: 1.5px solid rgba(255,255,255,.14); padding: 13px 28px; border-radius: 11px;
+  font-family: var(--sans); font-size: 15px; font-weight: 600;
+  transition: var(--transition);
+}
+.btn-dk:hover { background: rgba(255,255,255,.13); border-color: rgba(255,255,255,.35); transform: translateY(-2px); }
+
+.btn-blue {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  background: linear-gradient(135deg, var(--blue), var(--blue2));
+  color: white; border: none; padding: 15px; border-radius: 11px;
+  font-family: var(--sans); font-size: 15px; font-weight: 700;
+  transition: var(--transition);
+}
+.btn-blue:hover { transform: translateY(-2px); box-shadow: var(--sb); }
+
+/* ══════════════════════════════════
+   SECTIONS
+══════════════════════════════════ */
+.sec     { padding: 96px 0; position: relative; }
+.sec-sm  { padding: 64px 0; }
+.dk      { background: var(--navy); }
+.tint    { background: var(--off); }
+.tint2   { background: var(--gray); }
+
+/* ══════════════════════════════════
+   HERO
+══════════════════════════════════ */
+.hero {
+  min-height: 100vh; background: var(--navy);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; padding-top: 72px;
+}
+canvas#particles { position: absolute; inset: 0; z-index: 0; opacity: .6; will-change: transform; }
+
+.hero-glow { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; }
+.hg1 { width: 700px; height: 700px; background: radial-gradient(circle, rgba(232,101,10,.28), transparent 65%); top: -250px; right: -150px; animation: glPulse 7s ease-in-out infinite alternate; }
+.hg2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(26,82,201,.25), transparent 65%); bottom: -150px; left: -100px; animation: glPulse 9s ease-in-out infinite alternate-reverse; }
+.hg3 { width: 280px; height: 280px; background: radial-gradient(circle, rgba(245,158,11,.18), transparent 70%); top: 45%; left: 35%; animation: glPulse 5s ease-in-out infinite; }
+@keyframes glPulse { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.15) translate(25px,-20px); } }
+
+.hero-body {
+  position: relative; z-index: 2;
+  max-width: 1280px; margin: 0 auto;
+  padding: 56px 28px; width: 100%;
+  display: grid; grid-template-columns: 1fr 460px; gap: 64px; align-items: center;
+}
+
+/* Left */
+.hero-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(232,101,10,.12); border: 1px solid rgba(232,101,10,.3);
+  color: rgba(255,255,255,.9); padding: 7px 16px; border-radius: 30px;
+  font-family: var(--sans); font-size: 13px; font-weight: 500; margin-bottom: 24px;
+}
+.pdot { width: 7px; height: 7px; background: var(--orange2); border-radius: 50%; animation: pd 1.4s ease-in-out infinite; }
+@keyframes pd { 0%,100% { opacity:1;transform:scale(1); } 50% { opacity:.3;transform:scale(.75); } }
+
+.hero-logo-box { margin-bottom: 24px; }
+.hero-logo {
+  height: 84px; width: auto;
+  filter: drop-shadow(0 8px 28px rgba(232,101,10,.5));
+  animation: logoHover 3.5s ease-in-out infinite;
+}
+@keyframes logoHover { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+
+.hero-h1 {
+  font-family: var(--serif); font-size: clamp(36px,5vw,66px);
+  font-weight: 900; color: white; line-height: 1.08; margin-bottom: 22px;
+}
+.hero-h1 em { font-style: italic; }
+
+.hero-p { font-size: 16px; color: rgba(255,255,255,.58); line-height: 1.75; margin-bottom: 36px; max-width: 480px; font-weight: 400; }
+
+.hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
+
+.hero-stats { display: flex; align-items: center; }
+.hstat { display: flex; flex-direction: column; gap: 2px; padding: 0 26px; }
+.hstat:first-child { padding-left: 0; }
+.hstat-n { font-family: var(--sans); font-size: 26px; font-weight: 800; color: white; line-height: 1; }
+.hstat-x { font-family: var(--sans); font-size: 18px; font-weight: 800; color: var(--orange2); display: inline; }
+.hstat-l { font-family: var(--body); font-size: 12px; color: rgba(255,255,255,.42); letter-spacing: .3px; }
+.hstat-sep { width: 1px; height: 36px; background: rgba(255,255,255,.1); }
+
+/* Right device */
+.hero-device-wrap { position: relative; }
+.hero-device {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+  border-radius: 18px; overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.04), inset 0 1px 0 rgba(255,255,255,.08);
+  backdrop-filter: blur(16px);
+}
+.dev-bar {
+  display: flex; align-items: center; gap: 7px; padding: 13px 18px;
+  background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.ddb { width: 11px; height: 11px; border-radius: 50%; }
+.ddb.r { background:#ff5f57; } .ddb.y { background:#febc2e; } .ddb.g { background:#28c840; }
+.dev-fn { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.35); margin-left: 10px; }
+.dev-body { padding: 22px 22px 18px; min-height: 220px; }
+
+/* Floating cards */
+.flt {
+  position: absolute; display: flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,.09); backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,.16); border-radius: 13px;
+  padding: 12px 18px; color: white; box-shadow: var(--s3);
+}
+.flt-ic { font-size: 22px; }
+.flt-d { display: flex; flex-direction: column; }
+.flt-d strong { font-family: var(--sans); font-size: 14px; font-weight: 700; }
+.flt-d span { font-size: 11px; color: rgba(255,255,255,.52); }
+.fa { top: -18px; left: -80px; animation: fltF 5.5s ease-in-out infinite; }
+.fb-c { bottom: 60px; right: -60px; animation: fltF 7s ease-in-out infinite reverse; }
+.fc { bottom: -10px; left: -60px; animation: fltF 6s ease-in-out infinite; animation-delay: 1.5s; }
+@keyframes fltF { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-12px); } }
+
+.hero-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.05); pointer-events: none;
+}
+.hr1 { width: 340px; height: 340px; top: -60px; left: 40px; animation: ringP 5s ease-in-out infinite; }
+.hr2 { width: 500px; height: 500px; top: -140px; left: -40px; animation: ringP 7s ease-in-out infinite 2s; }
+@keyframes ringP { 0%,100% { opacity:.35;transform:scale(1); } 50% { opacity:.08;transform:scale(1.06); } }
+
+/* Scroll cue */
+.scroll-cue {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,.35); font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+}
+.sm-wrap { width: 22px; height: 36px; border: 2px solid rgba(255,255,255,.2); border-radius: 11px; display: flex; justify-content: center; padding-top: 6px; }
+.sm-ball { width: 3px; height: 8px; background: var(--orange2); border-radius: 2px; animation: smBall 1.6s ease-in-out infinite; }
+@keyframes smBall { 0%{transform:translateY(0);opacity:1} 100%{transform:translateY(10px);opacity:0} }
+
+/* ══════════════════════════════════
+   MARQUEE
+══════════════════════════════════ */
+.marquee-strip {
+  background: linear-gradient(135deg, rgba(232,101,10,.12), rgba(26,82,201,.1));
+  border-top: 1px solid rgba(232,101,10,.18); border-bottom: 1px solid rgba(26,82,201,.18);
+  padding: 13px 0; overflow: hidden; position: relative; z-index: 1;
+}
+.mq-track { display: flex; gap: 28px; width: max-content; animation: mq 28s linear infinite; }
+.mq-track:hover { animation-play-state: paused; }
+.mq-item { font-family: var(--sans); font-size: 13px; font-weight: 600; color: white; letter-spacing: .5px; white-space: nowrap; }
+.mq-dot { color: var(--orange2); font-size: 10px; }
+@keyframes mq { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+/* ══════════════════════════════════
+   SECTION REVEAL
+══════════════════════════════════ */
+.sr { opacity: 0; transform: translateY(26px); transition: opacity .65s cubic-bezier(.22,.68,0,1.1), transform .65s cubic-bezier(.22,.68,0,1.1); }
+.sr.vis { opacity: 1; transform: none; }
+.sd1 { transition-delay: .08s; } .sd2 { transition-delay: .16s; }
+.sd3 { transition-delay: .24s; } .sd4 { transition-delay: .32s; }
+.sd5 { transition-delay: .4s;  } .sd6 { transition-delay: .48s; }
+
+/* ══════════════════════════════════
+   HOME — MINI COURSE CARDS
+══════════════════════════════════ */
+.mc-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+  margin-top: 52px; margin-bottom: 44px;
+}
+.mc {
+  background: white; border: 1px solid var(--border); border-radius: var(--r);
+  padding: 28px 24px; cursor: none; position: relative; overflow: hidden;
+  transition: var(--transition);
+}
+.mc-bar {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--gold));
+  transform: scaleX(0); transform-origin: left; transition: transform .35s;
+}
+.mc:hover { transform: translateY(-8px); box-shadow: var(--s3); border-color: rgba(232,101,10,.3); }
+.mc:hover .mc-bar { transform: scaleX(1); }
+.mc-ic { font-size: 38px; margin-bottom: 14px; }
+.mc h3 { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.mc p { font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.55; }
+.mc-tag { display: inline-block; font-family: var(--sans); font-size: 11px; font-weight: 600; padding: 4px 12px; background: rgba(232,101,10,.08); color: var(--orange); border-radius: 20px; border: 1px solid rgba(232,101,10,.18); }
+.mc-arr { position: absolute; top: 20px; right: 20px; color: var(--orange2); font-size: 18px; opacity: 0; transform: translateX(-8px); transition: all .3s; }
+.mc:hover .mc-arr { opacity: 1; transform: none; }
+.mc.featured { background: linear-gradient(145deg, var(--navy2) 0%, var(--navy3) 100%); border-color: rgba(232,101,10,.35); }
+.mc.featured h3, .mc.featured p { color: white; }
+.mc.featured p { color: rgba(255,255,255,.6); }
+.mc.featured .mc-tag { background: rgba(232,101,10,.18); color: var(--orange2); }
+
+/* ══════════════════════════════════
+   WHY NICT
+══════════════════════════════════ */
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.why-features { display: flex; flex-direction: column; gap: 22px; margin-top: 32px; }
+.wf {
+  display: flex; gap: 16px; align-items: flex-start; padding: 18px 20px;
+  background: var(--off); border: 1px solid var(--border); border-radius: var(--r);
+  transition: var(--transition);
+}
+.wf:hover { background: white; box-shadow: var(--s2); border-color: rgba(232,101,10,.25); transform: translateX(4px); }
+.wf-ic {
+  font-size: 24px; width: 48px; height: 48px; border-radius: 12px;
+  background: linear-gradient(135deg, rgba(232,101,10,.1), rgba(26,82,201,.1));
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  border: 1px solid rgba(232,101,10,.15);
+}
+.wf-t { display: flex; flex-direction: column; gap: 3px; }
+.wf-t strong { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--text); }
+.wf-t span { font-size: 13px; color: var(--muted); }
+
+.why-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.wyc {
+  background: white; border: 1px solid var(--border); border-radius: var(--r);
+  padding: 24px; transition: var(--transition); position: relative; overflow: hidden;
+}
+.wyc::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(232,101,10,.03), rgba(26,82,201,.03)); opacity: 0; transition: opacity .3s; }
+.wyc:hover { transform: translateY(-6px); box-shadow: var(--s3); }
+.wyc:hover::before { opacity: 1; }
+.wyc.dk { background: var(--navy2); color: white; border-color: rgba(255,255,255,.07); }
+.wyc.ac { background: linear-gradient(145deg, var(--orange), var(--orange2)); color: white; border: none; box-shadow: var(--sg); text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.wyc-n { font-family: var(--serif); font-size: 36px; font-weight: 900; color: var(--orange); line-height: 1; }
+.wyc.dk .wyc-n { color: var(--gold2); }
+.wyc.ac .wyc-n { color: white; font-size: 28px; }
+.wyc-x { font-family: var(--serif); font-size: 24px; font-weight: 900; color: var(--orange); display: inline; }
+.wyc.dk .wyc-x { color: var(--gold2); }
+.wyc-l { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.wyc.dk .wyc-l { color: rgba(255,255,255,.55); }
+.wyc.ac .wyc-l { color: rgba(255,255,255,.82); font-size: 14px; font-weight: 500; }
+.wyc-bar { height: 4px; background: var(--gray2); border-radius: 2px; margin-top: 12px; overflow: hidden; }
+.wyc.dk .wyc-bar { background: rgba(255,255,255,.1); }
+.wyc-prog { height: 100%; background: linear-gradient(90deg, var(--orange), var(--gold)); border-radius: 2px; width: 0%; transition: width 1.8s cubic-bezier(.25,.8,.25,1) .4s; }
+.wyc.dk .wyc-prog { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
+
+/* ══════════════════════════════════
+   TESTIMONIALS
+══════════════════════════════════ */
+.testi-track-wrap { overflow: hidden; position: relative; }
+.testi-track { display: flex; gap: 24px; transition: transform .55s cubic-bezier(.25,.8,.25,1); }
+.tcard {
+  flex: 0 0 calc(33.333% - 16px); background: white; border: 1px solid var(--border);
+  border-radius: var(--rl); padding: 32px; position: relative; flex-shrink: 0;
+  transition: var(--transition);
+}
+.tcard:hover { transform: translateY(-6px); box-shadow: var(--s3); }
+.tcard.feat {
+  background: var(--navy2); border-color: rgba(232,101,10,.35); color: white;
+  box-shadow: 0 20px 60px rgba(4,16,31,.4);
+  transform: translateY(-12px);
+}
+.tcard.feat:hover { transform: translateY(-18px); }
+.tcard-q {
+  font-family: var(--serif); font-size: 72px; font-weight: 900;
+  line-height: .65; color: var(--orange); margin-bottom: 16px;
+}
+.tcard.feat .tcard-q { color: var(--gold2); }
+.tcard p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+.tcard.feat p { color: rgba(255,255,255,.65); }
+.tcard-auth { display: flex; align-items: center; gap: 12px; }
+.tcard-av {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans); font-size: 14px; font-weight: 700; color: white;
+}
+.tcard-auth div { display: flex; flex-direction: column; gap: 2px; }
+.tcard-auth strong { font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--text); }
+.tcard.feat .tcard-auth strong { color: white; }
+.tcard-auth span { font-size: 12px; color: var(--muted); }
+.tcard.feat .tcard-auth span { color: rgba(255,255,255,.45); }
+
+.tctrl { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 32px; }
+.tarr {
+  width: 44px; height: 44px; border-radius: 50%; background: var(--off); border: 1px solid var(--border);
+  font-size: 18px; display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.tarr:hover { background: var(--orange); color: white; border-color: var(--orange); transform: scale(1.1); }
+.tdot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: none; transition: all .3s; }
+.tdot.on { background: var(--orange); width: 24px; border-radius: 4px; }
+
+/* ══════════════════════════════════
+   CTA STRIP
+══════════════════════════════════ */
+.cta-strip {
+  background: linear-gradient(135deg, var(--navy), var(--navy3));
+  position: relative; overflow: hidden;
+}
+.cta-strip::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(232,101,10,.08), rgba(26,82,201,.08));
+}
+.cta-strip::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.cta-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  flex-wrap: wrap; position: relative; z-index: 1;
+}
+.cta-h { font-family: var(--serif); font-size: clamp(24px,3.2vw,40px); font-weight: 900; color: white; margin-bottom: 10px; }
+.cta-h em { font-style: italic; color: var(--gold2); }
+.cta-p { font-size: 16px; color: rgba(255,255,255,.55); }
+.cta-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* ══════════════════════════════════
+   INNER PAGE HERO
+══════════════════════════════════ */
+.pg-hero {
+  background: var(--navy); padding: 130px 0 70px; position: relative; overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.pg-hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 80% 40%, rgba(232,101,10,.12), transparent 70%);
+}
+.pg-hero .container { position: relative; z-index: 1; }
+.pg-title {
+  font-family: var(--serif); font-size: clamp(32px,5vw,58px);
+  font-weight: 900; color: white; line-height: 1.1; margin: 12px 0 16px;
+}
+.pg-title em { font-style: italic; }
+.pg-sub { font-size: 16px; color: rgba(255,255,255,.52); max-width: 560px; }
+
+/* ══════════════════════════════════
+   ABOUT PAGE
+══════════════════════════════════ */
+.about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-text .stitle { text-align: left; margin-top: 12px; }
+.about-text p { font-size: 15px; color: var(--text2); line-height: 1.8; margin-bottom: 16px; }
+.about-badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+.abadge {
+  display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px;
+  background: white; border: 1px solid var(--border); border-radius: 20px;
+  font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--text);
+  transition: var(--transition); box-shadow: var(--s1);
+}
+.abadge:hover { border-color: var(--orange2); color: var(--orange); transform: translateY(-2px); box-shadow: var(--s2); }
+
+.about-visual { position: relative; }
+.about-card {
+  background: var(--navy2); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--rl); padding: 36px; text-align: center;
+  box-shadow: var(--s4);
+}
+.about-card img { width: 190px; margin: 0 auto 24px; }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ast {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.07);
+  border-radius: var(--r); padding: 16px; text-align: center;
+}
+.ast-n { font-family: var(--sans); font-size: 22px; font-weight: 800; color: var(--orange2); line-height: 1; }
+.ast-l { font-size: 12px; color: rgba(255,255,255,.45); margin-top: 4px; }
+.about-float {
+  position: absolute; bottom: -20px; right: -20px;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white; border-radius: var(--r); padding: 16px 22px;
+  text-align: center; box-shadow: var(--sg);
+  font-family: var(--sans);
+}
+.about-float-n { font-size: 30px; font-weight: 800; line-height: 1; }
+.about-float-l { font-size: 11px; font-weight: 600; margin-top: 3px; opacity: .9; }
+
+/* MV Grid */
+.mv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 12px; }
+.mvcrd {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r); padding: 32px; transition: var(--transition);
+}
+.mvcrd:hover { background: rgba(232,101,10,.08); border-color: rgba(232,101,10,.25); transform: translateY(-6px); }
+.mvcrd-ic { font-size: 38px; margin-bottom: 18px; }
+.mvcrd h3 { font-family: var(--serif); font-size: 22px; font-weight: 700; color: white; margin-bottom: 12px; }
+.mvcrd p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+/* Director */
+.dir-wrap {
+  display: grid; grid-template-columns: 240px 1fr; gap: 52px; align-items: start;
+  background: var(--off); border: 1px solid var(--border); border-radius: var(--rl); padding: 44px;
+}
+.dir-av {
+  width: 110px; height: 110px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 30px; font-weight: 700; color: white;
+  margin: 0 auto 18px; box-shadow: var(--s3);
+}
+.dir-info { text-align: center; display: flex; flex-direction: column; gap: 4px; }
+.dir-info strong { font-family: var(--sans); font-size: 17px; font-weight: 700; }
+.dir-info span { font-size: 14px; color: var(--orange); font-weight: 600; }
+.dir-info small { font-size: 12px; color: var(--muted); font-style: italic; }
+.dir-msg { position: relative; }
+.dir-qm {
+  font-family: var(--serif); font-size: 110px; line-height: .55;
+  color: var(--orange); opacity: .12; position: absolute; top: -8px; left: -12px;
+  pointer-events: none;
+}
+.dir-msg h3 { font-family: var(--serif); font-size: 26px; font-weight: 700; margin-bottom: 18px; }
+.dir-msg p { font-size: 15px; color: var(--text2); line-height: 1.8; margin-bottom: 14px; }
+.dir-sig { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--orange); margin-top: 22px; }
+
+/* Timeline */
+.timeline { position: relative; padding-left: 56px; }
+.timeline::before {
+  content: ''; position: absolute; left: 24px; top: 8px; bottom: 8px;
+  width: 2px; background: linear-gradient(to bottom, var(--orange), var(--blue2));
+  border-radius: 2px;
+}
+.tl { display: flex; gap: 22px; margin-bottom: 28px; position: relative; align-items: flex-start; }
+.tl-dot {
+  position: absolute; left: -44px; top: 4px;
+  width: 16px; height: 16px; background: var(--orange); border-radius: 50%;
+  border: 3px solid white; box-shadow: 0 0 0 2px var(--orange), var(--sg);
+  flex-shrink: 0;
+}
+.tl-yr {
+  font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--orange);
+  background: rgba(232,101,10,.1); border: 1px solid rgba(232,101,10,.25);
+  padding: 4px 10px; border-radius: 6px; white-space: nowrap; flex-shrink: 0;
+}
+.tl-txt { font-size: 15px; color: rgba(255,255,255,.65); line-height: 1.65; padding-top: 3px; }
+
+/* Facilities */
+.fac-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.fac {
+  background: white; border: 1px solid var(--border); border-radius: var(--r);
+  padding: 28px; transition: var(--transition); position: relative; overflow: hidden;
+}
+.fac::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--gold));
+  transform: scaleX(0); transform-origin: left; transition: transform .35s;
+}
+.fac:hover { transform: translateY(-6px); box-shadow: var(--s3); }
+.fac:hover::after { transform: scaleX(1); }
+.fac-ic { font-size: 34px; margin-bottom: 12px; }
+.fac h4 { font-family: var(--sans); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.fac p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ══════════════════════════════════
+   COURSES
+══════════════════════════════════ */
+.cbig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.cbig {
+  background: white; border: 1px solid var(--border); border-radius: var(--rl);
+  padding: 32px; display: flex; flex-direction: column; gap: 18px;
+  position: relative; overflow: hidden; transition: var(--transition);
+}
+.cbig::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--orange), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform .4s;
+}
+.cbig:hover { transform: translateY(-5px); box-shadow: var(--s4); border-color: rgba(232,101,10,.3); }
+.cbig:hover::before { transform: scaleX(1); }
+.cbig.gov { border-color: rgba(26,82,201,.3); background: linear-gradient(145deg, rgba(26,82,201,.03), white); }
+.cbig.gov::before { background: linear-gradient(90deg, var(--blue), var(--blue2)); }
+
+.cbig-hd { display: flex; align-items: center; gap: 16px; position: relative; }
+.cbig-ic {
+  font-size: 36px; width: 62px; height: 62px; border-radius: 16px;
+  background: var(--gray); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cbig-hd h3 { font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.cbig-hd span { font-size: 13px; color: var(--muted); }
+.cbig-badge {
+  position: absolute; top: 0; right: 0; font-family: var(--sans);
+  font-size: 10px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: .5px;
+}
+.cbig-badge.pop { background: var(--orange); color: white; }
+.cbig-badge.gov { background: linear-gradient(135deg, var(--blue), var(--blue2)); color: white; }
+
+.cbig-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.cbig-tags span {
+  font-family: var(--sans); font-size: 12px; padding: 5px 12px;
+  background: var(--gray); border: 1px solid var(--border); border-radius: 6px; color: var(--text2);
+}
+.cbig > p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.cbig-syl strong { font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--text); display: block; margin-bottom: 10px; }
+.cbig-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.cbig-chips span {
+  font-size: 12px; padding: 4px 10px;
+  background: rgba(26,82,201,.06); border: 1px solid rgba(26,82,201,.15);
+  border-radius: 6px; color: var(--blue2);
+}
+.cbig-ft { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); margin-top: auto; }
+.cbig-fee { font-family: var(--sans); font-size: 20px; font-weight: 800; color: var(--text); }
+.cbig-fee small { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+/* ══════════════════════════════════
+   ADMISSION
+══════════════════════════════════ */
+.adm-layout { display: grid; grid-template-columns: 320px 1fr; gap: 56px; align-items: start; }
+.adm-info h3 { font-family: var(--serif); font-size: 24px; font-weight: 700; margin-bottom: 28px; }
+.adm-steps { position: relative; }
+.adm-steps::before {
+  content: ''; position: absolute; left: 16px; top: 30px; bottom: 30px;
+  width: 2px; background: linear-gradient(to bottom, var(--orange), var(--blue2));
+}
+.ast-step { display: flex; gap: 18px; padding: 14px 0; position: relative; }
+.ast-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--orange);
+  width: 32px; height: 32px; border-radius: 50%;
+  background: white; border: 2px solid var(--orange); box-shadow: var(--s1);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1;
+}
+.ast-step div { padding-top: 3px; }
+.ast-step strong { font-family: var(--sans); font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px; }
+.ast-step span { font-size: 13px; color: var(--muted); }
+.adm-cbox {
+  background: var(--gray); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 20px; margin-top: 24px; display: flex; flex-direction: column; gap: 14px;
+}
+.adm-ci { display: flex; gap: 12px; align-items: flex-start; }
+.adm-ci-ic { font-size: 20px; flex-shrink: 0; }
+.adm-ci strong { font-family: var(--sans); font-size: 13px; font-weight: 700; display: block; margin-bottom: 2px; }
+.adm-ci span { font-size: 13px; color: var(--muted); }
+
+/* Form */
+.adm-fc {
+  background: white; border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: var(--s4); overflow: hidden;
+}
+.adm-fc-head {
+  background: linear-gradient(135deg, var(--navy), var(--navy3));
+  padding: 28px 32px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.adm-fc-head h3 { font-family: var(--serif); font-size: 22px; font-weight: 700; color: white; margin-bottom: 4px; }
+.adm-fc-head p { font-size: 13px; color: rgba(255,255,255,.45); }
+.adm-fc form { padding: 28px 32px; }
+.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fg {
+  display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;
+}
+.fg label { font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--text); letter-spacing: .3px; }
+.fg input, .fg select, .fg textarea {
+  padding: 12px 16px; border: 1.5px solid var(--border);
+  border-radius: 10px; font-size: 14px; font-family: var(--body);
+  color: var(--text); background: white; outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.fg input::placeholder, .fg textarea::placeholder { color: var(--muted); }
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,101,10,.1);
+}
+.fg input.err, .fg select.err, .fg textarea.err { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.08); }
+.fg-err { font-size: 11px; color: #ef4444; min-height: 16px; }
+.fg-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
+.fg-check input { width: 16px; height: 16px; margin-top: 2px; accent-color: var(--orange); flex-shrink: 0; }
+.fg-check label { font-size: 13px; color: var(--muted); }
+.fg-check a { color: var(--orange); }
+
+.success-box {
+  text-align: center; padding: 60px 36px;
+  background: white; border-radius: var(--rl); box-shadow: var(--s4);
+  border: 1px solid rgba(34,197,94,.2);
+}
+.sb-ic { font-size: 72px; animation: sbPop .5s cubic-bezier(.36,.07,.19,.97); margin-bottom: 20px; }
+@keyframes sbPop { 0%{transform:scale(0)} 70%{transform:scale(1.12)} 100%{transform:scale(1)} }
+.success-box h3 { font-family: var(--serif); font-size: 26px; font-weight: 700; margin-bottom: 14px; }
+.success-box p { font-size: 15px; color: var(--muted); line-height: 1.7; margin-bottom: 10px; }
+.sb-ref { display: inline-block; font-family: var(--mono); font-size: 13px; color: var(--text2); background: var(--gray); border-radius: 8px; padding: 10px 20px; margin: 12px 0 24px; }
+
+/* ══════════════════════════════════
+   GALLERY
+══════════════════════════════════ */
+.gal-filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+.gf-btn {
+  padding: 9px 22px; border-radius: 22px; border: 1.5px solid var(--border);
+  background: white; font-family: var(--sans); font-size: 13px; font-weight: 600;
+  color: var(--text2); transition: var(--transition); box-shadow: var(--s1);
+}
+.gf-btn:hover, .gf-btn.on { background: var(--orange); border-color: var(--orange); color: white; box-shadow: var(--sg); }
+
+.gal-grid { display: grid; grid-template-columns: repeat(3,1fr); grid-auto-rows: 220px; gap: 16px; }
+.gi { border-radius: var(--r); overflow: hidden; cursor: none; position: relative; transition: var(--transition); }
+.gi.wide { grid-column: span 2; }
+.gi.tall { grid-row: span 2; }
+.gi:hover { transform: scale(1.025); z-index: 2; box-shadow: var(--s4); }
+/* Real image */
+.gi-ph { width:100%; height:100%; position:relative; }
+.gi-img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Placeholder shown when no image exists */
+.gi-placeholder {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(145deg,#0f1e38,#1a2e52);
+  border: 2px dashed rgba(232,101,10,.4);
+  position:absolute; inset:0;
+}
+.gph-inner {
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  padding:16px; text-align:center;
+}
+.gph-inner svg {
+  width:40px; height:40px; color:rgba(232,101,10,.6); flex-shrink:0;
+}
+.gph-label {
+  font-family:var(--sans); font-size:13px; font-weight:700;
+  color:rgba(255,255,255,.85); letter-spacing:.3px;
+}
+.gph-inner small {
+  font-family:var(--mono); font-size:10px;
+  color:rgba(232,101,10,.7);
+  background:rgba(232,101,10,.1);
+  padding:3px 8px; border-radius:4px;
+  border:1px solid rgba(232,101,10,.2);
+}
+
+/* Legacy gi-bg/gi-in kept for backwards compat */
+.gi-bg { width:100%;height:100%;display:flex;align-items:center;justify-content:center; }
+.gi-in { text-align:center;color:white;display:flex;flex-direction:column;align-items:center;gap:6px; }
+.gi-in > *:first-child { font-size: 40px; }
+.gi-in span { font-size: 15px; font-weight: 600; font-family: var(--sans); }
+.gi-in small { font-size: 12px; opacity: .7; }
+.gi-ov {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(4,16,31,.9), transparent 65%);
+  display: flex; align-items: flex-end; padding: 18px;
+  opacity: 0; transition: opacity .3s;
+}
+.gi:hover .gi-ov { opacity: 1; }
+.gi-ov span { color: white; font-family: var(--sans); font-size: 14px; font-weight: 600; }
+.gi.hidden { display: none !important; }
+
+/* Lightbox */
+.lbox {
+  position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.lbox.open { opacity: 1; pointer-events: all; }
+.lbox-bd { position: absolute; inset: 0; background: rgba(0,0,0,.92); backdrop-filter: blur(10px); }
+.lbox-box { position: relative; z-index: 1; max-width: 820px; width: 93%; }
+.lbox-x {
+  position: absolute; top: -54px; right: 0; background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15); color: white; width: 42px; height: 42px;
+  border-radius: 11px; font-size: 18px; display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.lbox-x:hover { background: var(--orange); border-color: var(--orange); transform: scale(1.1); }
+.lbox-img { border-radius: var(--rl); overflow: hidden; height: 460px; }
+.lbox-cap { color: rgba(255,255,255,.65); text-align: center; margin-top: 14px; font-size: 14px; font-family: var(--sans); }
+
+/* ══════════════════════════════════
+   DOWNLOADS
+══════════════════════════════════ */
+.dl-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+.dl {
+  background: white; border: 1px solid var(--border); border-radius: var(--r);
+  padding: 22px 26px; display: flex; align-items: center; gap: 20px;
+  cursor: none; transition: var(--transition); position: relative; overflow: hidden;
+}
+.dl::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(to bottom, var(--orange), var(--gold));
+  transform: scaleY(0); transform-origin: top; transition: transform .35s;
+}
+.dl:hover { transform: translateX(6px); box-shadow: var(--s3); border-color: rgba(232,101,10,.3); }
+.dl:hover::before { transform: scaleY(1); }
+.dl-ic { font-size: 36px; flex-shrink: 0; }
+.dl-info { flex: 1; }
+.dl-info h4 { font-family: var(--sans); font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.dl-info p { font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+.dl-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.dl-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white; padding: 12px 22px; border-radius: 9px; flex-shrink: 0;
+  font-family: var(--sans); font-size: 12px; font-weight: 700; transition: var(--transition);
+}
+.dl-btn-ic { font-size: 20px; line-height: 1; }
+.dl:hover .dl-btn { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(232,101,10,.4); }
+.dl-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--r); padding: 14px 20px; font-size: 13px; color: #92400e; }
+
+/* ══════════════════════════════════
+   CONTACT
+══════════════════════════════════ */
+.con-layout { display: grid; grid-template-columns: 360px 1fr; gap: 60px; margin-bottom: 56px; }
+.con-left h3 { font-family: var(--serif); font-size: 24px; font-weight: 700; margin-bottom: 28px; }
+.con-items { display: flex; flex-direction: column; gap: 18px; margin-bottom: 32px; }
+.ci { display: flex; gap: 14px; align-items: flex-start; }
+.ci-ic {
+  font-size: 18px; width: 44px; height: 44px;
+  background: var(--gray); border: 1px solid var(--border); border-radius: 11px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: var(--transition);
+}
+.ci:hover .ci-ic { background: rgba(232,101,10,.1); border-color: rgba(232,101,10,.25); transform: scale(1.1); }
+.ci-t strong { font-family: var(--sans); font-size: 13px; font-weight: 700; display: block; margin-bottom: 3px; }
+.ci-t span { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.con-soc strong { font-family: var(--sans); font-size: 14px; font-weight: 700; display: block; margin-bottom: 12px; }
+.csb-row { display: flex; gap: 8px; }
+.csb {
+  width: 40px; height: 40px; background: var(--gray); border: 1px solid var(--border);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; transition: var(--transition);
+}
+.csb:hover { background: var(--orange); color: white; border-color: var(--orange); transform: translateY(-4px); box-shadow: var(--sg); }
+.con-fc {
+  background: white; border: 1px solid var(--border); border-radius: var(--rl);
+  box-shadow: var(--s4); overflow: hidden;
+}
+.con-fc-head { background: linear-gradient(135deg, var(--navy), var(--navy3)); padding: 24px 28px; }
+.con-fc-head h3 { font-family: var(--serif); font-size: 20px; font-weight: 700; color: white; }
+.con-fc form { padding: 22px 28px; }
+.map-blk { margin-top: 20px; }
+.map-blk h3 { font-family: var(--serif); font-size: 22px; font-weight: 700; margin-bottom: 18px; }
+.map-frm { border-radius: var(--rl); overflow: hidden; box-shadow: var(--s3); border: 1px solid var(--border); }
+
+/* ══════════════════════════════════
+   FOOTER
+══════════════════════════════════ */
+.footer { background: var(--navy); }
+.ft-top { padding: 72px 0 52px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.ft-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 52px; }
+.ft-logo { height: 58px; width: auto; margin-bottom: 18px; }
+.ft-brand p { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.8; margin-bottom: 22px; max-width: 300px; }
+.ft-soc { display: flex; gap: 8px; }
+.ft-soc a { width: 36px; height: 36px; background: rgba(255,255,255,.06); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: rgba(255,255,255,.45); transition: var(--transition); }
+.ft-soc a:hover { background: var(--orange); color: white; transform: translateY(-3px); }
+.ft-col h4 { font-family: var(--sans); font-size: 12px; font-weight: 700; color: rgba(255,255,255,.9); margin-bottom: 16px; letter-spacing: 1.2px; text-transform: uppercase; }
+.ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.ft-col li a { font-size: 13px; color: rgba(255,255,255,.45); transition: color .2s; }
+.ft-col li a:hover { color: var(--orange2); }
+.ft-col p { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.75; margin-bottom: 6px; }
+.ft-bot { padding: 20px 0; }
+.ft-bot .container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.ft-bot span { font-size: 13px; color: rgba(255,255,255,.28); }
+.ftb-links { display: flex; gap: 20px; }
+.ftb-links a { font-size: 13px; color: rgba(255,255,255,.28); transition: color .2s; }
+.ftb-links a:hover { color: var(--orange2); }
+
+/* ══════════════════════════════════
+   TOAST
+══════════════════════════════════ */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9990;
+  background: var(--navy2); color: white; padding: 14px 22px 14px 18px;
+  border-radius: 12px; font-size: 14px; font-weight: 500;
+  transform: translateY(100px); opacity: 0;
+  transition: all .4s cubic-bezier(.22,.68,0,1.2);
+  border: 1px solid rgba(255,255,255,.1); border-left: 4px solid var(--orange);
+  box-shadow: var(--s4); white-space: nowrap; max-width: 340px;
+  display: flex; align-items: center; gap: 10px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ══════════════════════════════════
+   BACK TO TOP
+══════════════════════════════════ */
+.btt {
+  position: fixed; bottom: 32px; right: 32px; z-index: 500;
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--orange2));
+  color: white; border: none; font-size: 20px;
+  box-shadow: var(--sg); opacity: 0; pointer-events: none;
+  transition: all .35s cubic-bezier(.22,.68,0,1.2);
+}
+.btt.show { opacity: 1; pointer-events: all; }
+.btt:hover { transform: translateY(-5px) scale(1.08); box-shadow: 0 12px 36px rgba(232,101,10,.5); }
+
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
+/* ══════════════════════════════════
+   RESPONSIVE — TABLET (≤1100px)
+══════════════════════════════════ */
+@media (max-width: 1100px) {
+  .hero-body { grid-template-columns: 1fr; text-align: center; }
+  .hero-right { display: none; }
+  .hero-left { max-width: 100%; }
+  .hero-p { margin-left: auto; margin-right: auto; }
+  .hero-stats { justify-content: center; }
+  .hero-btns { justify-content: center; }
+  .hero-pill { margin: 0 auto 20px; }
+  .hero-logo-box { display: flex; justify-content: center; }
+  .why-grid { grid-template-columns: 1fr; gap: 48px; }
+  .why-left { text-align: center; }
+  .why-features { align-items: stretch; }
+  .why-cards { grid-template-columns: repeat(2,1fr); }
+  .ft-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .mc-grid { grid-template-columns: repeat(3,1fr); }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — MOBILE (≤768px)
+══════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Navbar */
+  .nav-links, .nav-enroll { display: none; }
+  .hamburger { display: flex; }
+  .nav-inner { padding: 0 16px; }
+  .nav-logo-img { height: 40px; }
+  .nbt-main { font-size: 14px; }
+  .nbt-sub { display: none; }
+  .navbar { border-bottom-width: 2px; }
+
+  /* Hero */
+  .hero { padding-top: 64px; }
+  .hero-body { padding: 40px 16px 60px; gap: 32px; text-align: center; }
+  .hero-pill { margin: 0 auto 18px; font-size: 12px; }
+  .hero-logo { height: 72px; }
+  .hero-logo-box { justify-content: center; }
+  .hero-h1 { font-size: clamp(28px,7vw,40px); margin-bottom: 16px; }
+  .hero-p { font-size: 15px; margin: 0 auto 28px; }
+  .hero-btns { flex-direction: column; align-items: center; gap: 12px; margin-bottom: 36px; }
+  .hero-btns .btn-pr, .hero-btns .btn-sec { width: 100%; max-width: 320px; justify-content: center; padding: 14px 20px; }
+  .hero-stats { justify-content: center; gap: 0; flex-wrap: wrap; row-gap: 20px; }
+  .hstat { padding: 0 16px; }
+  .hstat:first-child { padding-left: 16px; }
+  .hstat-n { font-size: 22px; }
+  .hstat-sep { height: 28px; }
+
+  /* Sections */
+  .sec { padding: 52px 0; }
+  .sec-sm { padding: 44px 0; }
+  .container { padding: 0 16px; }
+  .section-head { margin-bottom: 36px; }
+  .stitle { font-size: clamp(22px,6vw,32px); }
+  .ssub { font-size: 15px; }
+
+  /* Marquee */
+  .mq-item { font-size: 12px; }
+
+  /* Mini course cards */
+  .mc-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .mc { padding: 20px 16px; }
+  .mc-ic { font-size: 30px; margin-bottom: 10px; }
+  .mc h3 { font-size: 17px; }
+  .mc p { font-size: 12px; }
+
+  /* Why NICT */
+  .why-grid { grid-template-columns: 1fr; gap: 36px; }
+  .why-left { text-align: left; }
+  .why-cards { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .wyc { padding: 18px; }
+  .wyc-n { font-size: 26px; }
+
+  /* Testimonials */
+  .tcard { flex: 0 0 100%; padding: 24px; }
+  .tcard.feat { transform: none; }
+  .tcard-q { font-size: 56px; }
+  .tcard p { font-size: 13px; }
+
+  /* CTA strip */
+  .cta-strip { padding: 48px 0; }
+  .cta-inner { flex-direction: column; text-align: center; gap: 24px; }
+  .cta-h { font-size: clamp(20px,5.5vw,28px); }
+  .cta-btns { flex-direction: column; align-items: center; gap: 12px; }
+  .cta-btns .btn-pr, .cta-btns .btn-dk { width: 100%; max-width: 300px; justify-content: center; }
+
+  /* Page heroes */
+  .pg-hero { padding: 100px 0 48px; }
+  .pg-title { font-size: clamp(26px,6.5vw,40px); }
+  .pg-sub { font-size: 15px; }
+
+  /* About */
+  .about-layout { grid-template-columns: 1fr; gap: 32px; }
+  .about-card { padding: 24px; }
+  .about-card img { width: 150px; }
+  .about-stats { grid-template-columns: repeat(2,1fr); gap: 8px; }
+  .ast { padding: 12px; }
+  .ast-n { font-size: 18px; }
+  .about-float { position: static; margin-top: 20px; display: flex; justify-content: center; border-radius: 12px; }
+
+  /* Mission/Vision */
+  .mv-grid { grid-template-columns: 1fr; gap: 14px; }
+  .mvcrd { padding: 24px; }
+  .mvcrd h3 { font-size: 18px; }
+
+  /* Director */
+  .dir-wrap { grid-template-columns: 1fr; gap: 28px; padding: 28px 20px; }
+  .dir-av { width: 80px; height: 80px; font-size: 24px; }
+  .dir-info { flex-direction: row; align-items: center; gap: 16px; }
+  .dir-info strong { font-size: 15px; }
+  .dir-msg h3 { font-size: 20px; }
+  .dir-msg p { font-size: 14px; }
+  .dir-qm { font-size: 80px; }
+
+  /* Timeline */
+  .timeline { padding-left: 40px; }
+  .timeline::before { left: 12px; }
+  .tl-dot { left: -36px; width: 14px; height: 14px; }
+  .tl-yr { font-size: 11px; padding: 3px 8px; }
+  .tl-txt { font-size: 13px; }
+
+  /* Facilities */
+  .fac-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .fac { padding: 20px 16px; }
+  .fac-ic { font-size: 28px; }
+  .fac h4 { font-size: 14px; }
+  .fac p { font-size: 12px; }
+
+  /* Courses */
+  .cbig-grid { grid-template-columns: 1fr; gap: 18px; }
+  .cbig { padding: 22px 18px; }
+  .cbig-hd h3 { font-size: 20px; }
+  .cbig-ic { width: 50px; height: 50px; font-size: 28px; }
+  .cbig-tags { gap: 6px; }
+  .cbig-tags span { font-size: 11px; padding: 4px 9px; }
+  .cbig-chips span { font-size: 11px; padding: 3px 8px; }
+  .cbig-ft { flex-direction: column; gap: 14px; align-items: flex-start; }
+  .cbig-badge { font-size: 9px; padding: 3px 9px; }
+
+  /* Admission */
+  .adm-layout { grid-template-columns: 1fr; gap: 28px; }
+  .adm-info h3 { font-size: 20px; margin-bottom: 20px; }
+  .adm-fc-head { padding: 20px; }
+  .adm-fc-head h3 { font-size: 18px; }
+  .adm-fc form { padding: 16px; }
+  .fg-row { grid-template-columns: 1fr; }
+  .fg input, .fg select, .fg textarea { font-size: 16px; } /* Prevent iOS zoom */
+  .ast-step strong { font-size: 13px; }
+  .ast-step span { font-size: 12px; }
+
+  /* Gallery */
+  .gal-filters { gap: 8px; }
+  .gf-btn { padding: 7px 14px; font-size: 12px; }
+  .gal-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 160px; gap: 10px; }
+  .gi.tall, .gi.wide { grid-column: auto; grid-row: auto; }
+  .gi-in > *:first-child { font-size: 28px; }
+  .gi-in span { font-size: 12px; }
+
+  /* Downloads */
+  .dl { flex-wrap: wrap; gap: 14px; padding: 16px; }
+  .dl-info h4 { font-size: 14px; }
+  .dl-info p { font-size: 12px; }
+  .dl-btn { padding: 10px 16px; }
+
+  /* Contact */
+  .con-layout { grid-template-columns: 1fr; gap: 28px; }
+  .con-left h3 { font-size: 20px; }
+  .ci-ic { width: 38px; height: 38px; font-size: 16px; }
+  .con-fc-head { padding: 18px 20px; }
+  .con-fc form { padding: 16px 20px; }
+  .con-fc .fg input, .con-fc .fg textarea { font-size: 16px; }
+  .map-blk h3 { font-size: 18px; }
+  .lbox-img { height: 260px; }
+
+  /* Footer */
+  .ft-grid { grid-template-columns: 1fr; gap: 28px; }
+  .ft-top { padding: 44px 0 32px; }
+  .ft-logo { height: 48px; }
+  .ft-brand p { font-size: 13px; }
+  .ft-col h4 { font-size: 11px; }
+  .ft-col li a, .ft-col p { font-size: 13px; }
+  .ft-bot .container { flex-direction: column; text-align: center; gap: 8px; }
+  .ft-bot span, .ftb-links a { font-size: 12px; }
+
+  /* Scroll progress & back-to-top */
+  .btt { bottom: 20px; right: 16px; width: 42px; height: 42px; font-size: 17px; }
+
+  /* Toast */
+  .toast { right: 12px; left: 12px; text-align: center; white-space: normal; max-width: none; transform: translateY(100px); }
+  .toast.show { transform: translateY(0); }
+
+  /* Mobile menu drawer */
+  .mob-drawer { width: 260px; padding: 68px 16px 24px; }
+  .mob-link { font-size: 14px; padding: 11px 14px; }
+}
+
+/* ══════════════════════════════════
+   RESPONSIVE — SMALL PHONES (≤400px)
+══════════════════════════════════ */
+@media (max-width: 400px) {
+  .hero-h1 { font-size: 26px; }
+  .hero-logo { height: 60px; }
+  .mc-grid { grid-template-columns: 1fr; }
+  .gal-grid { grid-template-columns: 1fr; grid-auto-rows: 180px; }
+  .why-cards { grid-template-columns: 1fr; }
+  .fac-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: repeat(2,1fr); }
+  .hstat { padding: 0 10px; }
+  .hstat-n { font-size: 20px; }
+  .stitle { font-size: 22px; }
+  .pg-title { font-size: 24px; }
+  .container { padding: 0 14px; }
+}
+
+
+/* ══════════════════════════════════
+   FONT AWESOME ICON STYLES
+══════════════════════════════════ */
+
+/* General icon sizing & alignment */
+.fas, .fab, .far {
+  line-height: inherit;
+  vertical-align: middle;
+}
+
+/* Nav link icons */
+.nav-link .fas { font-size: 13px; margin-right: 4px; color: var(--orange2); opacity: 0; transition: opacity .2s; }
+.nav-link:hover .fas, .nav-link.active .fas { opacity: 1; }
+
+/* Mobile menu link icons */
+.mob-link .fas { width: 22px; color: var(--orange2); font-size: 14px; }
+
+/* Why features icon box */
+.wf-ic .fas { font-size: 20px; color: var(--orange); }
+.wf-ic .fab { font-size: 20px; color: var(--orange); }
+
+/* Floating badges */
+.flt-ic .fas { font-size: 20px; }
+
+/* About badges */
+.abadge .fas { color: var(--orange); font-size: 13px; }
+
+/* Facility cards */
+.fac-ic .fas { font-size: 30px; color: var(--orange); }
+
+/* Course cards */
+.cbig-ic .fas { font-size: 28px; color: var(--orange2); }
+.mc-ic .fas   { font-size: 32px; color: var(--orange); }
+
+/* Download icons */
+.dl-ic .fas { font-size: 28px; color: var(--orange); display: block; text-align: center; }
+.dl-btn .fas { font-size: 15px; }
+
+/* Contact icons */
+.ci-ic .fas { font-size: 16px; color: var(--orange); }
+
+/* MV grid icons */
+.mvcrd-ic .fas { font-size: 32px; color: var(--orange2); }
+
+/* Admission steps */
+.adm-ci-ic .fas { font-size: 18px; color: var(--orange); }
+
+/* Footer social icons */
+.ft-soc a .fab, .csb .fab { font-size: 15px; }
+
+/* Back to top */
+.btt .fas { font-size: 16px; }
+
+/* Why cards icons */
+.wyc .fas { color: var(--orange); display: block; margin-bottom: 6px; }
+
+/* Success check */
+.sb-ic .fas { font-size: 64px; display: block; text-align: center; margin-bottom: 20px; }
+
+/* Course badge icons */
+.cbig-badge .fas { margin-right: 4px; font-size: 10px; }
+
+/* Scroll up arrow */
+.btt .fas { font-size: 18px; }
+
+</style>
+</head>
+<body>
+<div id="scrollProg"></div>
+<div class="c-dot" id="cDot"></div>
+<div class="c-ring" id="cRing"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand" onclick="nav('home')" style="cursor:pointer">
+      <img src="logo.png" alt="NICT" class="nav-logo-img"/>
+      <div class="nav-brand-text"><span class="nbt-main">NICT</span><span class="nbt-sub">Computer Education</span></div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" class="nav-link active" data-page="home"      onclick="nav('home');return false;"><span>Home</span></a></li>
+      <li><a href="#" class="nav-link" data-page="about"     onclick="nav('about');return false;"><span>About</span></a></li>
+      <li><a href="#" class="nav-link" data-page="courses"   onclick="nav('courses');return false;"><span>Courses</span></a></li>
+      <li><a href="#" class="nav-link" data-page="admission" onclick="nav('admission');return false;"><span>Admission</span></a></li>
+      <li><a href="#" class="nav-link" data-page="gallery"   onclick="nav('gallery');return false;"><span>Gallery</span></a></li>
+      <li><a href="#" class="nav-link" data-page="downloads" onclick="nav('downloads');return false;"><span>Downloads</span></a></li>
+      <li><a href="#" class="nav-link" data-page="contact"   onclick="nav('contact');return false;"><span>Contact</span></a></li>
+    </ul>
+    <button class="nav-enroll" onclick="nav('admission')"><span class="btn-shine"></span>Enroll Now</button>
+    <button class="hamburger" id="ham"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-overlay" id="mobOv" onclick="closeMob()"></div>
+<div class="mob-drawer" id="mobDraw">
+  <div class="mob-header">
+    <img src="logo.png" alt="NICT" class="mob-logo"/>
+    <button class="mob-close" onclick="closeMob()">&#x2715;</button>
+  </div>
+  <div class="mob-links">
+    <a href="#" onclick="nav('home');closeMob();return false;" class="mob-link"><i class="fas fa-home"></i> Home</a>
+    <a href="#" onclick="nav('about');closeMob();return false;" class="mob-link"><i class="fas fa-info-circle"></i> About</a>
+    <a href="#" onclick="nav('courses');closeMob();return false;" class="mob-link"><i class="fas fa-book-open"></i> Courses</a>
+    <a href="#" onclick="nav('admission');closeMob();return false;" class="mob-link"><i class="fas fa-file-alt"></i> Admission</a>
+    <a href="#" onclick="nav('gallery');closeMob();return false;" class="mob-link"><i class="fas fa-images"></i> Gallery</a>
+    <a href="#" onclick="nav('downloads');closeMob();return false;" class="mob-link"><i class="fas fa-download"></i> Downloads</a>
+    <a href="#" onclick="nav('contact');closeMob();return false;" class="mob-link"><i class="fas fa-phone"></i> Contact</a>
+  </div>
+  <div class="mob-footer">
+    <button class="mob-enroll" onclick="nav('admission');closeMob()">Enroll Now &rarr;</button>
+    <div class="mob-contact">
+      <a href="tel:+919198399234"><i class="fas fa-phone-alt"></i> +91 91983 99234</a>
+      <a href="mailto:nictprayagraj@gmail.com"><i class="fas fa-envelope"></i> nictprayagraj@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<div id="page-home" class="page active">
+
+<section class="hero">
+  <div class="hero-glow hg1"></div><div class="hero-glow hg2"></div><div class="hero-glow hg3"></div>
+  <div class="hero-body">
+    <div class="hero-left">
+      <div class="hero-pill sr"><span class="pdot"></span>Admissions Open &mdash; Prayagraj</div>
+      <div class="hero-logo-box sr sd1"><img src="logo.png" alt="NICT" class="hero-logo"/></div>
+      <h1 class="hero-h1 sr sd2">Shape Your <em class="grad">Digital Future</em><br/>With NICT</h1>
+      <p class="hero-p sr sd3">Premier computer training institute in Prayagraj &mdash; industry-aligned curricula, expert mentors and hands-on labs that launch exceptional careers.</p>
+      <div class="hero-btns sr sd4">
+        <button class="btn-pr" onclick="nav('admission')"><span>Apply for Admission</span> &rarr;</button>
+        <button class="btn-sec" onclick="nav('courses')">Explore Courses</button>
+      </div>
+      <div class="hero-stats sr sd5">
+        <div class="hstat"><span class="hstat-n cnt" data-n="15">0</span><span class="hstat-x">+</span><span class="hstat-l">Years Active</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n cnt" data-n="10">0</span><span class="hstat-x">+</span><span class="hstat-l">Courses</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n" style="font-size:15px;line-height:1.5">NIELIT</span><span class="hstat-l">Certified</span></div>
+        <div class="hstat-sep"></div>
+        <div class="hstat"><span class="hstat-n" style="font-size:13px;line-height:1.5">Prayagraj</span><span class="hstat-l">U.P.</span></div>
+      </div>
+    </div>
+    <div class="hero-right sr sd2">
+      <div class="hero-device-wrap">
+        <div class="hero-ring hr1"></div><div class="hero-ring hr2"></div>
+        <div class="hero-device">
+          <div class="dev-bar"><span class="ddb r"></span><span class="ddb y"></span><span class="ddb g"></span><span class="dev-fn">nict_career.py</span></div>
+          <div class="dev-body" id="twTarget"></div>
+        </div>
+        <div class="flt fa"><span class="flt-ic"><i class="fas fa-graduation-cap"></i></span><div class="flt-d"><strong>ADCA</strong><span>12 Months</span></div></div>
+        <div class="flt fb-c"><span class="flt-ic"><i class="fas fa-chart-bar"></i></span><div class="flt-d"><strong>Tally</strong><span>Job Ready</span></div></div>
+        <div class="flt fc"><span class="flt-ic"><i class="fas fa-certificate"></i></span><div class="flt-d"><strong>O Level</strong><span>Govt. Cert.</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="sm-wrap"><div class="sm-ball"></div></div><span>SCROLL</span></div>
+</section>
+
+<div class="marquee-strip">
+  <div class="mq-track">
+    <span class="mq-item">ADCA</span><span class="mq-dot">&#10022;</span><span class="mq-item">DCA</span><span class="mq-dot">&#10022;</span><span class="mq-item">CCC</span><span class="mq-dot">&#10022;</span><span class="mq-item">O Level</span><span class="mq-dot">&#10022;</span><span class="mq-item">Tally ERP</span><span class="mq-dot">&#10022;</span><span class="mq-item">Python</span><span class="mq-dot">&#10022;</span><span class="mq-item">Digital Marketing</span><span class="mq-dot">&#10022;</span><span class="mq-item">Graphic Design</span><span class="mq-dot">&#10022;</span><span class="mq-item">ADCA</span><span class="mq-dot">&#10022;</span><span class="mq-item">DCA</span><span class="mq-dot">&#10022;</span><span class="mq-item">CCC</span><span class="mq-dot">&#10022;</span><span class="mq-item">O Level</span><span class="mq-dot">&#10022;</span><span class="mq-item">Tally ERP</span><span class="mq-dot">&#10022;</span><span class="mq-item">Python</span><span class="mq-dot">&#10022;</span><span class="mq-item">Digital Marketing</span><span class="mq-dot">&#10022;</span><span class="mq-item">Graphic Design</span><span class="mq-dot">&#10022;</span>
+  </div>
+</div>
+
+<section class="sec tint">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="slabel sr">Our Programmes</div>
+      <h2 class="stitle sr sd1" style="text-align:center">Courses Built for <em>Real Careers</em></h2>
+      <p class="ssub sr sd2" style="margin:0 auto 44px">Industry-designed, expert-taught and government-recognised programmes.</p>
+    </div>
+    <div class="mc-grid">
+      <div class="mc sr sd1" onclick="nav('courses')"><div class="mc-bar"></div><div class="mc-ic"><i class="fas fa-desktop"></i></div><h3>ADCA</h3><p>Advanced Diploma in Computer Applications</p><span class="mc-tag">12 Months</span><span class="mc-arr">&rarr;</span></div>
+      <div class="mc sr sd2" onclick="nav('courses')"><div class="mc-bar"></div><div class="mc-ic"><i class="fas fa-mobile-alt"></i></div><h3>DCA</h3><p>Diploma in Computer Applications</p><span class="mc-tag">6 Months</span><span class="mc-arr">&rarr;</span></div>
+      <div class="mc sr sd3" onclick="nav('courses')"><div class="mc-bar"></div><div class="mc-ic"><i class="fas fa-cloud"></i></div><h3>CCC</h3><p>Course on Computer Concepts</p><span class="mc-tag">3 Months</span><span class="mc-arr">&rarr;</span></div>
+      <div class="mc featured sr sd4" onclick="nav('courses')"><div class="mc-bar"></div><div class="mc-ic"><i class="fas fa-university"></i></div><h3>O Level</h3><p>NIELIT Government Certified</p><span class="mc-tag">1 Year</span><span class="mc-arr">&rarr;</span></div>
+      <div class="mc sr sd5" onclick="nav('courses')"><div class="mc-bar"></div><div class="mc-ic"><i class="fas fa-calculator"></i></div><h3>Tally</h3><p>Tally ERP 9 &amp; Tally Prime</p><span class="mc-tag">3 Months</span><span class="mc-arr">&rarr;</span></div>
+      <div class="mc sr sd6" onclick="nav('courses')"><div class="mc-bar"></div><div class="mc-ic"><i class="fas fa-bolt"></i></div><h3>Skill Dev</h3><p>Job-Oriented Skill Tracks</p><span class="mc-tag">1&ndash;3 Months</span><span class="mc-arr">&rarr;</span></div>
+    </div>
+    <div style="text-align:center;margin-top:40px"><button class="btn-pr" onclick="nav('courses')"><span>View All Courses</span> &rarr;</button></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="container">
+    <div class="why-grid">
+      <div>
+        <div class="slabel sr">Why Choose NICT</div>
+        <h2 class="stitle sr sd1">The Institute That<br/><em>Goes Further</em></h2>
+        <p class="ssub sr sd2" style="margin-bottom:28px">We build professionals, not just certificate holders. Rigorous academics, real-world practice and career support.</p>
+        <div class="why-features">
+          <div class="wf sr sd2"><div class="wf-ic"><i class="fas fa-trophy"></i></div><div class="wf-t"><strong>Expert Faculty</strong><span>Industry-trained teachers with years of experience</span></div></div>
+          <div class="wf sr sd3"><div class="wf-ic"><i class="fas fa-flask"></i></div><div class="wf-t"><strong>Modern Labs</strong><span>High-spec computers with latest hardware &amp; software</span></div></div>
+          <div class="wf sr sd4"><div class="wf-ic"><i class="fas fa-scroll"></i></div><div class="wf-t"><strong>NIELIT Affiliated</strong><span>Government recognised and state board accredited</span></div></div>
+          <div class="wf sr sd5"><div class="wf-ic"><i class="fas fa-briefcase"></i></div><div class="wf-t"><strong>Placement Support</strong><span>Career guidance and job placement assistance</span></div></div>
+        </div>
+        <div style="margin-top:28px"><button class="btn-pr sr sd6" onclick="nav('about')"><span>Know More About Us</span> &rarr;</button></div>
+      </div>
+      <div class="why-cards">
+        <div class="wyc dk sr"><div style="font-size:2.2rem;font-weight:900;font-family:var(--sans);color:var(--gold2);line-height:1">15+</div><div class="wyc-l">Years of Experience</div></div>
+        <div class="wyc sr sd1"><div style="font-size:1.8rem;margin-bottom:6px"><i class="fas fa-scroll fa-2x"></i></div><div class="wyc-l" style="font-weight:700;font-size:14px;color:var(--text)">NIELIT Affiliated</div><div class="wyc-l">Govt. Recognised</div></div>
+        <div class="wyc sr sd2"><div style="font-size:1.8rem;margin-bottom:6px"><i class="fas fa-desktop fa-2x"></i></div><div class="wyc-l" style="font-weight:700;font-size:14px;color:var(--text)">Modern Labs</div><div class="wyc-l">Latest Hardware &amp; Software</div></div>
+        <div class="wyc ac sr sd3"><div style="font-size:2.2rem"><i class="fas fa-chalkboard-teacher fa-2x"></i></div><div class="wyc-l" style="font-weight:600">Expert Faculty<br/><small style="opacity:.85;font-size:11px">Industry Professionals</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec tint">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:44px">
+      <div class="slabel sr">Student Stories</div>
+      <h2 class="stitle sr sd1" style="text-align:center">Real People, <em>Real Success</em></h2>
+    </div>
+    <div class="testi-track-wrap">
+      <div class="testi-track" id="testiTrack">
+        <div class="tcard sr"><div class="tcard-q">"</div><p>NICT's ADCA programme transformed my career. I got placed shortly after completing the course. The faculty's practical approach makes all the difference.</p><div class="tcard-auth"><div class="tcard-av">PK</div><div><strong>Priya Kapoor</strong><span>Software Executive</span></div></div></div>
+        <div class="tcard feat sr sd1"><div class="tcard-q">"</div><p>The Tally course at NICT was incredibly practical. I was job-ready from day one. Highly recommended for commerce students!</p><div class="tcard-auth"><div class="tcard-av">RS</div><div><strong>Rahul Sharma</strong><span>Accounts Manager</span></div></div></div>
+        <div class="tcard sr sd2"><div class="tcard-q">"</div><p>I cleared my O Level exam in the first attempt thanks to NICT's structured coaching. Notes and mock tests were exceptional.</p><div class="tcard-auth"><div class="tcard-av">AN</div><div><strong>Anjali Nair</strong><span>Data Entry Specialist</span></div></div></div>
+        <div class="tcard sr sd3"><div class="tcard-q">"</div><p>The Digital Marketing course gave me skills to start freelancing. Within two months I was earning independently. Great institute!</p><div class="tcard-auth"><div class="tcard-av">VK</div><div><strong>Vikram Kumar</strong><span>Digital Marketer</span></div></div></div>
+      </div>
+    </div>
+    <div class="tctrl"><button class="tarr" onclick="slideTesti(-1)">&larr;</button><div id="testiDots"></div><button class="tarr" onclick="slideTesti(1)">&rarr;</button></div>
+  </div>
+</section>
+
+<section class="sec sec-sm cta-strip">
+  <div class="container cta-inner">
+    <div><div class="cta-h">Ready for Your <em>Tech Journey?</em></div><p class="cta-p">Apply now and secure your place in the next batch.</p></div>
+    <div class="cta-btns"><button class="btn-pr" onclick="nav('admission')">Apply for Admission</button><button class="btn-dk" onclick="nav('contact')">Talk to Counsellor</button></div>
+  </div>
+</section>
+
+</div>
+
+<div id="page-about" class="page">
+<div class="pg-hero"><div class="container"><div class="slabel lt">About Us</div><h1 class="pg-title">Building <em class="grad">Digital Futures</em><br/>Since 2010</h1><p class="pg-sub">Serving Prayagraj with quality computer education for 15+ years.</p></div></div>
+
+<section class="sec"><div class="container"><div class="about-layout">
+  <div>
+    <div class="slabel sr">Our Story</div>
+    <h2 class="stitle sr sd1">Quality Computer Education<br/>in <em>Prayagraj</em></h2>
+    <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:14px" class="sr sd2">NICT Computer Education was established in 2010 with one goal: to make quality computer education accessible to every student in Prayagraj.</p>
+    <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:14px" class="sr sd3">We offer 10+ professional programmes taught by experienced industry-trained faculty, backed by NIELIT certification and state recognition.</p>
+    <p style="font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px" class="sr sd4">Every course and certificate we award carries our commitment to excellence, integrity and student success.</p>
+    <div class="about-badges sr sd5">
+      <span class="abadge"><i class="fas fa-university"></i> NIELIT Affiliated</span>
+      <span class="abadge"><i class="fas fa-award"></i> State Recognised</span>
+      <span class="abadge"><i class="fas fa-graduation-cap"></i> Since 2010</span>
+    </div>
+  </div>
+  <div class="about-visual sr sd2">
+    <div class="about-card">
+      <img src="logo.png" alt="NICT"/>
+      <div class="about-stats">
+        <div class="ast"><div class="ast-n">15+</div><div class="ast-l">Years Active</div></div>
+        <div class="ast"><div class="ast-n">10+</div><div class="ast-l">Programmes</div></div>
+        <div class="ast"><div class="ast-n">NIELIT</div><div class="ast-l">Certified</div></div>
+        <div class="ast"><div class="ast-n">Prayagraj</div><div class="ast-l">U.P.</div></div>
+      </div>
+    </div>
+    <div class="about-float"><div class="about-float-n">Since</div><div class="about-float-l">2010 &mdash; Prayagraj</div></div>
+  </div>
+</div></div></section>
+
+<section class="sec dk"><div class="container">
+  <div style="text-align:center;margin-bottom:44px"><div class="slabel lt sr">Foundation</div><h2 class="stitle lt sr sd1" style="text-align:center">Mission, Vision &amp; <em class="grad">Values</em></h2></div>
+  <div class="mv-grid">
+    <div class="mvcrd sr"><div class="mvcrd-ic"><i class="fas fa-bullseye"></i></div><h3>Mission</h3><p>Empower individuals with industry-relevant computer skills, fostering employability and digital literacy in our community.</p></div>
+    <div class="mvcrd sr sd1"><div class="mvcrd-ic"><i class="fas fa-telescope"></i></div><h3>Vision</h3><p>Be the premier computer training institute in Prayagraj &mdash; known for excellence and the success of every student.</p></div>
+    <div class="mvcrd sr sd2"><div class="mvcrd-ic"><i class="fas fa-gem"></i></div><h3>Values</h3><p>Excellence in every lesson. Integrity in every interaction. Education is a right, not a privilege.</p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="container">
+  <div class="slabel sr">Leadership</div>
+  <h2 class="stitle sr sd1">Director's <em>Message</em></h2>
+  <div class="dir-wrap sr sd2">
+    <div><div class="dir-av">AK</div><div class="dir-info"><strong>Arun Kumar</strong><span>Founder &amp; Director</span><small>NICT Computer Education</small></div></div>
+    <div class="dir-msg">
+      <div class="dir-qm">"</div>
+      <h3>A Message from the Director</h3>
+      <p>NICT was established with one clear vision: to make quality computer education accessible to every student in Prayagraj. Today our graduates are confidently working across various sectors.</p>
+      <p>At NICT we don't just teach software &mdash; we build confidence, skills and careers. Our faculty brings real-world experience into every classroom.</p>
+      <p>To every student considering joining us: we are committed to your success. Our doors, phones and emails are always open for you.</p>
+      <div class="dir-sig">&mdash; Arun Kumar, NICT Prayagraj</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec dk"><div class="container">
+  <div style="text-align:center;margin-bottom:44px"><div class="slabel lt sr">Milestones</div><h2 class="stitle lt sr sd1" style="text-align:center">Our <em class="grad">Journey</em></h2></div>
+  <div class="timeline">
+    <div class="tl sr"><div class="tl-dot"></div><div class="tl-yr">2023</div><div class="tl-txt">Continued expansion of course offerings and student enrolments</div></div>
+    <div class="tl sr sd1"><div class="tl-dot"></div><div class="tl-yr">2022</div><div class="tl-txt">NIELIT Accreditation renewed &mdash; recognised centre for O Level &amp; CCC</div></div>
+    <div class="tl sr sd2"><div class="tl-dot"></div><div class="tl-yr">2020</div><div class="tl-txt">Expanded course offerings &mdash; added Skill Development tracks</div></div>
+    <div class="tl sr sd3"><div class="tl-dot"></div><div class="tl-yr">2018</div><div class="tl-txt">Upgraded computer labs with modern hardware and latest software</div></div>
+    <div class="tl sr sd4"><div class="tl-dot"></div><div class="tl-yr">2015</div><div class="tl-txt">Expanded batch capacity &mdash; more students, more courses</div></div>
+    <div class="tl sr sd5"><div class="tl-dot"></div><div class="tl-yr">2010</div><div class="tl-txt">NICT Computer Education established in Prayagraj, Uttar Pradesh</div></div>
+  </div>
+</div></section>
+
+<section class="sec tint"><div class="container">
+  <div style="text-align:center;margin-bottom:44px"><div class="slabel sr">Infrastructure</div><h2 class="stitle sr sd1" style="text-align:center">Our <em>Facilities</em></h2></div>
+  <div class="fac-grid">
+    <div class="fac sr"><div class="fac-ic"><i class="fas fa-desktop"></i></div><h4>Computer Labs</h4><p>Air-conditioned labs with high-spec workstations and latest OS &amp; software</p></div>
+    <div class="fac sr sd1"><div class="fac-ic"><i class="fas fa-wifi"></i></div><h4>High-Speed Internet</h4><p>Fast internet for uninterrupted online learning and practice</p></div>
+    <div class="fac sr sd2"><div class="fac-ic"><i class="fas fa-book"></i></div><h4>Study Material</h4><p>Comprehensive notes, practice papers and video tutorials provided</p></div>
+    <div class="fac sr sd3"><div class="fac-ic"><i class="fas fa-tv"></i></div><h4>Smart Classrooms</h4><p>Projectors and visual aids for enhanced learning experience</p></div>
+    <div class="fac sr sd4"><div class="fac-ic"><i class="fas fa-couch"></i></div><h4>Student Lounge</h4><p>Comfortable area for students to relax and study collaboratively</p></div>
+    <div class="fac sr sd5"><div class="fac-ic"><i class="fas fa-shield-alt"></i></div><h4>Safe Environment</h4><p>Safe and secure institute premises for all students</p></div>
+  </div>
+</div></section>
+</div>
+
+<div id="page-courses" class="page">
+<div class="pg-hero"><div class="container"><div class="slabel lt">Programmes</div><h1 class="pg-title">Courses Built for <em class="grad">Your Career</em></h1><p class="pg-sub">Industry-designed, expert-taught, government-recognised.</p></div></div>
+<section class="sec"><div class="container"><div class="cbig-grid">
+
+  <div class="cbig sr">
+    <div class="cbig-hd"><span class="cbig-badge pop"><i class="fas fa-star"></i> Most Popular</span><div class="cbig-ic"><i class="fas fa-desktop fa-2x"></i></div><div><h3>ADCA</h3><span>Advanced Diploma in Computer Applications</span></div></div>
+    <div class="cbig-tags"><span>12 Months</span><span>Govt. Recognised</span><span>10th Pass</span></div>
+    <p>Comprehensive programme covering computer applications &mdash; fundamentals to advanced programming, web development and accounting software.</p>
+    <div class="cbig-syl"><strong>Syllabus:</strong><div class="cbig-chips"><span>MS Office</span><span>Internet</span><span>C Programming</span><span>HTML &amp; CSS</span><span>Tally ERP 9</span><span>MySQL</span><span>Photoshop</span><span>CorelDRAW</span></div></div>
+    <div class="cbig-ft"><button class="btn-pr btn-pr sm" onclick="nav('admission')">Enquire Now &rarr;</button></div>
+  </div>
+
+  <div class="cbig sr sd1">
+    <div class="cbig-hd"><div class="cbig-ic"><i class="fas fa-mobile-alt fa-2x"></i></div><div><h3>DCA</h3><span>Diploma in Computer Applications</span></div></div>
+    <div class="cbig-tags"><span>6 Months</span><span>Certified</span><span>8th Pass</span></div>
+    <p>Foundational diploma ideal for those entering the IT field or seeking computer proficiency for office roles.</p>
+    <div class="cbig-syl"><strong>Syllabus:</strong><div class="cbig-chips"><span>Computer Basics</span><span>MS Office</span><span>Internet</span><span>Tally Basic</span><span>Project Work</span><span>Typing</span></div></div>
+    <div class="cbig-ft"><button class="btn-pr btn-pr sm" onclick="nav('admission')">Enquire Now &rarr;</button></div>
+  </div>
+
+  <div class="cbig sr sd2">
+    <div class="cbig-hd"><div class="cbig-ic"><i class="fas fa-cloud fa-2x"></i></div><div><h3>CCC</h3><span>Course on Computer Concepts</span></div></div>
+    <div class="cbig-tags"><span>3 Months</span><span>NIELIT</span><span>No Prereq.</span></div>
+    <p>NIELIT's flagship entry-level course &mdash; essential for government job applications and basic digital literacy.</p>
+    <div class="cbig-syl"><strong>Syllabus:</strong><div class="cbig-chips"><span>Computer Intro</span><span>OS Basics</span><span>Word Processing</span><span>Spreadsheets</span><span>Internet</span><span>Exam Prep</span></div></div>
+    <div class="cbig-ft"><button class="btn-pr btn-pr sm" onclick="nav('admission')">Enquire Now &rarr;</button></div>
+  </div>
+
+  <div class="cbig gov sr sd3">
+    <div class="cbig-hd"><span class="cbig-badge gov"><i class="fas fa-certificate"></i> Govt. Certified</span><div class="cbig-ic"><i class="fas fa-university fa-2x"></i></div><div><h3>O Level</h3><span>NIELIT O Level Programme</span></div></div>
+    <div class="cbig-tags"><span>1 Year</span><span>NIELIT Official</span><span>12th Pass</span></div>
+    <p>India's most sought-after govt. IT qualification &mdash; equivalent to a foundation computer degree, accepted by all employers.</p>
+    <div class="cbig-syl"><strong>Syllabus:</strong><div class="cbig-chips"><span>IT Tools (M1)</span><span>Web Design (M2)</span><span>Python (M3)</span><span>.NET (M4)</span><span>Practical</span><span>Project</span></div></div>
+    <div class="cbig-ft"><button class="btn-pr btn-pr sm" onclick="nav('admission')">Enquire Now &rarr;</button></div>
+  </div>
+
+  <div class="cbig sr sd4">
+    <div class="cbig-hd"><div class="cbig-ic"><i class="fas fa-calculator fa-2x"></i></div><div><h3>Tally</h3><span>Tally ERP 9 &amp; Tally Prime</span></div></div>
+    <div class="cbig-tags"><span>3 Months</span><span>Job Oriented</span><span>Commerce</span></div>
+    <p>Complete accounting &amp; inventory management using industry-standard Tally &mdash; ideal for commerce students and professionals.</p>
+    <div class="cbig-syl"><strong>Syllabus:</strong><div class="cbig-chips"><span>Tally Prime</span><span>Accounting</span><span>GST Filing</span><span>Inventory</span><span>Payroll</span><span>TDS Reports</span></div></div>
+    <div class="cbig-ft"><button class="btn-pr btn-pr sm" onclick="nav('admission')">Enquire Now &rarr;</button></div>
+  </div>
+
+  <div class="cbig sr sd5">
+    <div class="cbig-hd"><div class="cbig-ic"><i class="fas fa-bolt fa-2x"></i></div><div><h3>Skill Development</h3><span>Job-Ready Skill Programmes</span></div></div>
+    <div class="cbig-tags"><span>1&ndash;3 Months</span><span>Certificate</span><span>Open to All</span></div>
+    <p>Focused short-term programmes for in-demand skills &mdash; perfect for freelancing or immediate employment.</p>
+    <div class="cbig-syl"><strong>Tracks:</strong><div class="cbig-chips"><span>Graphic Design</span><span>Video Editing</span><span>Digital Marketing</span><span>Excel Advanced</span><span>Python Basics</span><span>Cyber Security</span></div></div>
+    <div class="cbig-ft"><button class="btn-pr btn-pr sm" onclick="nav('admission')">Enquire Now &rarr;</button></div>
+  </div>
+
+</div></div></section>
+</div>
+
+<div id="page-admission" class="page">
+<div class="pg-hero"><div class="container"><div class="slabel lt">Join NICT</div><h1 class="pg-title">Start Your <em class="grad">Admission</em></h1><p class="pg-sub">Fill the form &mdash; our counsellor contacts you within 24 hours.</p></div></div>
+<section class="sec tint"><div class="container"><div class="adm-layout">
+  <div>
+    <h3 style="font-family:var(--serif);font-size:22px;margin-bottom:24px">Admission Process</h3>
+    <div class="adm-steps">
+      <div class="ast-step sr"><div class="ast-num">01</div><div><strong>Submit Application</strong><span>Fill &amp; submit this online form</span></div></div>
+      <div class="ast-step sr sd1"><div class="ast-num">02</div><div><strong>Counselling Call</strong><span>Team discusses best course for you</span></div></div>
+      <div class="ast-step sr sd2"><div class="ast-num">03</div><div><strong>Document Verification</strong><span>Submit certificates &amp; ID proof</span></div></div>
+      <div class="ast-step sr sd3"><div class="ast-num">04</div><div><strong>Fee Payment</strong><span>Cash, UPI or bank transfer</span></div></div>
+      <div class="ast-step sr sd4"><div class="ast-num">05</div><div><strong>Begin Classes!</strong><span>Attend orientation &amp; start learning</span></div></div>
+    </div>
+    <div class="adm-cbox sr sd5">
+      <div class="adm-ci"><span class="adm-ci-ic"><i class="fas fa-phone-alt"></i></span><div><strong>Helpline</strong><span><a href="tel:+919198399234"><i class="fas fa-phone-alt" style="margin-right:4px"></i>+91 91983 99234</a><br/><a href="tel:+918707421319"><i class="fas fa-phone-alt" style="margin-right:4px"></i>+91 87074 21319</a></span></div></div>
+      <div class="adm-ci"><span class="adm-ci-ic"><i class="fas fa-clock"></i></span><div><strong>Hours</strong><span>Mon&ndash;Sat, 9 AM &ndash; 6 PM</span></div></div>
+      <div class="adm-ci"><span class="adm-ci-ic"><i class="fas fa-envelope"></i></span><div><strong>Email</strong><span><a href="mailto:nictprayagraj@gmail.com"><i class="fas fa-envelope"></i> nictprayagraj@gmail.com</a></span></div></div>
+    </div>
+  </div>
+  <div>
+    <div class="adm-fc" id="admForm">
+      <div class="adm-fc-head"><h3>Online Registration Form</h3><p>Fields marked * are required</p></div>
+      <form onsubmit="submitAdm(event)" novalidate>
+        <div class="fg-row">
+          <div class="fg"><label>Full Name *</label><input type="text" id="fn" placeholder="Your full name" required/><span class="fg-err" id="fnE"></span></div>
+          <div class="fg"><label>Phone Number *</label><input type="tel" id="ph" placeholder="+91 XXXXX XXXXX" required/><span class="fg-err" id="phE"></span></div>
+        </div>
+        <div class="fg"><label>Email Address *</label><input type="email" id="em" placeholder="your@email.com" required/><span class="fg-err" id="emE"></span></div>
+        <div class="fg-row">
+          <div class="fg"><label>Select Course *</label>
+            <select id="co" required>
+              <option value="">Choose Course</option>
+              <option value="adca">ADCA</option><option value="dca">DCA</option>
+              <option value="ccc">CCC</option><option value="olevel">O Level</option>
+              <option value="tally">Tally ERP</option><option value="graphic">Graphic Design</option>
+              <option value="digital">Digital Marketing</option><option value="python">Python</option>
+              <option value="other">Other</option>
+            </select>
+            <span class="fg-err" id="coE"></span>
+          </div>
+          <div class="fg"><label>Qualification</label>
+            <select id="qu"><option value="">Select</option><option>8th Pass</option><option>10th Pass</option><option>12th Pass</option><option>Graduate</option><option>Post Graduate</option></select>
+          </div>
+        </div>
+        <div class="fg"><label>Full Address *</label><textarea id="ad" rows="3" placeholder="City, State, PIN code..." required></textarea><span class="fg-err" id="adE"></span></div>
+        <div class="fg"><label>Message (Optional)</label><textarea id="ms" rows="2" placeholder="Any questions or requirements..."></textarea></div>
+        <div class="fg-check"><input type="checkbox" id="tc" required/><label for="tc">I agree to the Terms &amp; Conditions and consent to being contacted by NICT.</label></div>
+        <button type="submit" class="btn-blue" id="subBtn"><span id="subTxt">Submit Application &rarr;</span></button>
+      </form>
+    </div>
+    <div class="success-box" id="admSuccess" style="display:none">
+      <div class="sb-ic"><i class="fas fa-check-circle" style="color:#22c55e"></i></div>
+      <h3>Application Submitted!</h3>
+      <p>Thank you for registering with <strong>NICT Computer Education</strong>. Our counsellor will call you within <strong>24 working hours</strong>.</p>
+      <div class="sb-ref">Ref ID: <strong id="refId"></strong></div>
+      <button class="btn-pr" onclick="resetAdm()">Submit Another &rarr;</button>
+    </div>
+  </div>
+</div></div></section>
+</div>
+
+<div id="page-gallery" class="page">
+<div class="pg-hero"><div class="container"><div class="slabel lt">Campus Life</div><h1 class="pg-title">Life at <em class="grad">NICT</em></h1><p class="pg-sub">Our campus, labs, events and student life.</p></div></div>
+<section class="sec tint"><div class="container">
+  <div class="gal-filters">
+    <button class="gf-btn on" onclick="filterGal('all',this)">All</button>
+    <button class="gf-btn" onclick="filterGal('labs',this)">Labs</button>
+    <button class="gf-btn" onclick="filterGal('classroom',this)">Classrooms</button>
+    <button class="gf-btn" onclick="filterGal('events',this)">Events</button>
+    <button class="gf-btn" onclick="filterGal('students',this)">Students</button>
+  </div>
+  <div class="gal-grid" id="galGrid">
+
+    <div class="gi classroom tall" onclick="openLB(this,'NICT Classroom — Teacher with Students')">
+      <div class="gi-ph">
+        <img src="NICT_1.jpeg" alt="NICT Classroom" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Classroom Session &mdash; Teacher with Students</span></div>
+    </div>
+
+    <div class="gi classroom" onclick="openLB(this,'NICT Students in Class')">
+      <div class="gi-ph">
+        <img src="NICT_2.jpeg" alt="Students in Class" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Students in Classroom Session</span></div>
+    </div>
+
+    <div class="gi events wide" onclick="openLB(this,'NICT Skill Development Programme — Geriatric Care Giver')">
+      <div class="gi-ph">
+        <img src="NICT_3.jpeg" alt="NICT Skill Programme" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Skill Development Programme at NICT</span></div>
+    </div>
+
+    <div class="gi events" onclick="openLB(this,'NICT Skill Development Session')">
+      <div class="gi-ph">
+        <img src="NICT_4.jpeg" alt="NICT Skill Session" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Geriatric Care Giver — Selection Meeting</span></div>
+    </div>
+
+    <div class="gi students wide" onclick="openLB(this,'NICT Large Batch — Full Classroom')">
+      <div class="gi-ph">
+        <img src="NICT_5.jpeg" alt="Full Classroom" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Large Batch in Session</span></div>
+    </div>
+
+    <div class="gi students tall" onclick="openLB(this,'NICT Students Full Batch')">
+      <div class="gi-ph">
+        <img src="NICT_6.jpeg" alt="Students Batch" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Full Student Batch at NICT</span></div>
+    </div>
+
+    <div class="gi events" onclick="openLB(this,'NICT Skill India — DAY-NULM Programme')">
+      <div class="gi-ph">
+        <img src="NICT_7.jpeg" alt="Skill India Programme" class="gi-img"/>
+      </div>
+      <div class="gi-ov"><span>Skill India &mdash; DAY-NULM Programme</span></div>
+    </div>
+
+  </div>
+</div></section>
+</div>
+<div class="lbox" id="lbox"><div class="lbox-bd" onclick="closeLB()"></div><div class="lbox-box"><button class="lbox-x" onclick="closeLB()">&#x2715;</button><div class="lbox-img" id="lbImg"></div><div class="lbox-cap" id="lbCap"></div></div></div>
+
+<div id="page-downloads" class="page">
+<div class="pg-hero"><div class="container"><div class="slabel lt">Resources</div><h1 class="pg-title">Download <em class="grad">Centre</em></h1><p class="pg-sub">All NICT documents in one convenient place.</p></div></div>
+<section class="sec tint"><div class="container">
+  <div class="dl-grid">
+    <div class="dl sr"><div class="dl-ic"><i class="fas fa-file-pdf"></i></div><div class="dl-info"><h4>NICT Prospectus 2024&ndash;25</h4><p>Complete guide to all programmes, eligibility and facilities</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('Prospectus')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr sd1"><div class="dl-ic"><i class="fas fa-file-alt"></i></div><div class="dl-info"><h4>Admission Form 2024&ndash;25</h4><p>Printable offline admission form for walk-in registrations</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('Admission Form')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr sd2"><div class="dl-ic"><i class="fas fa-graduation-cap"></i></div><div class="dl-info"><h4>ADCA Detailed Syllabus</h4><p>Module-wise syllabus for Advanced Diploma in Computer Applications</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('ADCA Syllabus')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr sd3"><div class="dl-ic"><i class="fas fa-mobile-alt"></i></div><div class="dl-info"><h4>DCA Syllabus</h4><p>Complete syllabus for Diploma in Computer Applications</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('DCA Syllabus')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr sd4"><div class="dl-ic"><i class="fas fa-university"></i></div><div class="dl-info"><h4>O Level Study Material</h4><p>Chapter-wise notes and practice questions for NIELIT O Level</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('O Level Material')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr sd5"><div class="dl-ic"><i class="fas fa-calculator"></i></div><div class="dl-info"><h4>Tally ERP 9 Notes</h4><p>Comprehensive notes for Tally ERP 9 and Tally Prime with GST</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('Tally Notes')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr sd6"><div class="dl-ic"><i class="fas fa-cloud"></i></div><div class="dl-info"><h4>CCC Exam Guide</h4><p>Previous year questions and exam strategy for NIELIT CCC</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('CCC Guide')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+    <div class="dl sr"><div class="dl-ic"><i class="fas fa-calendar-alt"></i></div><div class="dl-info"><h4>Academic Calendar 2024&ndash;25</h4><p>Exam schedules, holidays, batch timings and important dates</p><span class="dl-meta">Contact us to receive this document</span></div><button class="dl-btn" onclick="doDownload('Academic Calendar')"><span class="dl-btn-ic"><i class="fas fa-download"></i></span><span>Request</span></button></div>
+  </div>
+  <div class="dl-note"><i class="fas fa-thumbtack"></i> To receive any document, contact: <strong><a href="mailto:nictprayagraj@gmail.com"><i class="fas fa-envelope"></i> nictprayagraj@gmail.com</a></strong> or call <strong><a href="tel:+919198399234"><i class="fas fa-phone-alt" style="margin-right:4px"></i>+91 91983 99234</a></strong></div>
+</div></section>
+</div>
+
+<div id="page-contact" class="page">
+<div class="pg-hero"><div class="container"><div class="slabel lt">Get In Touch</div><h1 class="pg-title">We're Here to <em class="grad">Help You</em></h1><p class="pg-sub">Our counsellors are ready to assist you at any time.</p></div></div>
+<section class="sec tint"><div class="container">
+  <div class="con-layout">
+    <div>
+      <h3 style="font-family:var(--serif);font-size:24px;margin-bottom:28px">Contact NICT</h3>
+      <div class="con-items">
+        <div class="ci"><div class="ci-ic"><i class="fas fa-map-marker-alt"></i></div><div class="ci-t"><strong>Address</strong><span>23Q/1R, Alka Vihar Colony, Mundera Bamrauli,<br/>Near Vivekanand Inter College,<br/>Prayagraj &ndash; 211011, Uttar Pradesh</span></div></div>
+        <div class="ci"><div class="ci-ic"><i class="fas fa-phone-alt"></i></div><div class="ci-t"><strong>Phone</strong><span><a href="tel:+919198399234"><i class="fas fa-phone-alt" style="margin-right:4px"></i>+91 91983 99234</a><br/><a href="tel:+918707421319"><i class="fas fa-phone-alt" style="margin-right:4px"></i>+91 87074 21319</a></span></div></div>
+        <div class="ci"><div class="ci-ic"><i class="fas fa-envelope"></i></div><div class="ci-t"><strong>Email</strong><span><a href="mailto:nictprayagraj@gmail.com"><i class="fas fa-envelope"></i> nictprayagraj@gmail.com</a><br/><a href="mailto:nictprayagraj@gmail.com"><i class="fas fa-envelope"></i> nictprayagraj@gmail.com</a></span></div></div>
+        <div class="ci"><div class="ci-ic"><i class="fas fa-clock"></i></div><div class="ci-t"><strong><i class="fas fa-clock" style="margin-right:4px;color:var(--orange)"></i>Office Hours</strong><span>Mon&ndash;Sat: 9 AM &ndash; 6 PM<br/>Sunday: 10 AM &ndash; 2 PM</span></div></div>
+      </div>
+      <div class="con-soc"><strong>Follow NICT</strong><div class="csb-row"><a href="#" class="csb"><i class="fab fa-facebook-f"></i></a><a href="#" class="csb"><i class="fab fa-instagram"></i></a><a href="#" class="csb"><i class="fab fa-youtube"></i></a></div></div>
+    </div>
+    <div class="con-fc sr sd2">
+      <div class="con-fc-head"><h3>Send an Enquiry</h3></div>
+      <form onsubmit="submitCon(event)" novalidate>
+        <div class="fg-row">
+          <div class="fg"><label>Name *</label><input type="text" id="cNm" placeholder="Full name" required/></div>
+          <div class="fg"><label>Phone *</label><input type="tel" id="cPh" placeholder="+91 XXXXX" required/></div>
+        </div>
+        <div class="fg"><label>Email *</label><input type="email" id="cEm" placeholder="your@email.com" required/></div>
+        <div class="fg"><label>Subject</label><select id="cSub"><option>Course Information</option><option>Admission Process</option><option>Fee Structure</option><option>Other</option></select></div>
+        <div class="fg"><label>Message *</label><textarea id="cMsg" rows="4" placeholder="Write your query..." required></textarea></div>
+        <button type="submit" class="btn-blue">Send Message &rarr;</button>
+      </form>
+    </div>
+  </div>
+  <div class="map-blk sr" style="margin-top:40px">
+    <h3 style="font-family:var(--serif);font-size:22px;margin-bottom:18px">Find Us on the Map</h3>
+    <div class="map-frm">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3602.67!2d81.8463!3d25.4358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399acbd24d386889%3A0x1f2ba9ed25600226!2sMundera%20Bamrauli%2C%20Prayagraj%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1699500000000" width="100%" height="400" style="border:0" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<footer class="footer">
+  <div class="ft-top"><div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <img src="logo.png" alt="NICT" class="ft-logo"/>
+        <p>Empowering careers through quality computer education in Prayagraj since 2010. NIELIT recognised, industry-aligned, student-centred.</p>
+        <div class="ft-soc"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div>
+      </div>
+      <div class="ft-col"><h4>Quick Links</h4><ul>
+        <li><a href="#" onclick="nav('home');return false;">Home</a></li>
+        <li><a href="#" onclick="nav('about');return false;">About Us</a></li>
+        <li><a href="#" onclick="nav('courses');return false;">Courses</a></li>
+        <li><a href="#" onclick="nav('admission');return false;">Admission</a></li>
+        <li><a href="#" onclick="nav('gallery');return false;">Gallery</a></li>
+        <li><a href="#" onclick="nav('contact');return false;">Contact</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Programmes</h4><ul>
+        <li><a href="#" onclick="nav('courses');return false;">ADCA</a></li>
+        <li><a href="#" onclick="nav('courses');return false;">DCA</a></li>
+        <li><a href="#" onclick="nav('courses');return false;">CCC</a></li>
+        <li><a href="#" onclick="nav('courses');return false;">O Level</a></li>
+        <li><a href="#" onclick="nav('courses');return false;">Tally ERP</a></li>
+        <li><a href="#" onclick="nav('courses');return false;">Skill Dev</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Contact</h4>
+        <p><i class="fas fa-map-marker-alt" style="color:var(--orange);width:16px;margin-right:6px"></i>Alka Vihar Colony, Mundera Bamrauli, Prayagraj 211011</p>
+        <p><i class="fas fa-phone-alt" style="color:var(--orange);width:16px;margin-right:6px"></i><a href="tel:+919198399234" style="color:inherit">+91 91983 99234</a></p>
+        <p><i class="fas fa-phone-alt" style="color:var(--orange);width:16px;margin-right:6px"></i><a href="tel:+918707421319" style="color:inherit">+91 87074 21319</a></p>
+        <p><a href="mailto:nictprayagraj@gmail.com"><i class="fas fa-envelope"></i> nictprayagraj@gmail.com</a></p>
+        <p><i class="fas fa-clock" style="color:var(--orange);width:16px;margin-right:6px"></i>Mon&ndash;Sat: 9 AM &ndash; 6 PM</p>
+        <button class="ft-enroll" onclick="nav('admission')">Enroll Now &rarr;</button>
+      </div>
+    </div>
+  </div></div>
+  <div class="ft-bot"><div class="container">
+    <span>&copy; 2024 NICT Computer Education, Prayagraj. All rights reserved.</span>
+    <div class="ftb-links"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══════════════════════════════════════════════════════
+   NICT Computer Education, Prayagraj — Main Script
+   EmailJS Integration: forms send real emails
+   ═══════════════════════════════════════════════════════
+
+   ▸ HOW TO ACTIVATE REAL EMAIL SENDING:
+     1. Go to https://www.emailjs.com and create a free account
+     2. Add a Gmail service → connect nictprayagraj@gmail.com
+     3. Create two email templates (see template guide below)
+     4. Copy your Public Key, Service ID, and Template IDs below
+     5. That's it — forms will send real emails!
+
+   ▸ EMAILJS TEMPLATE GUIDE:
+     Template for ADMISSION (template_admission):
+       Subject: New Admission Enquiry — {{student_name}}
+       Body:
+         Name: {{student_name}}
+         Phone: {{student_phone}}
+         Email: {{student_email}}
+         Course: {{course}}
+         Qualification: {{qualification}}
+         Address: {{address}}
+         Message: {{message}}
+
+     Template for CONTACT (template_contact):
+       Subject: Website Enquiry — {{from_name}}
+       Body:
+         Name: {{from_name}}
+         Phone: {{phone}}
+         Email: {{from_email}}
+         Subject: {{subject}}
+         Message: {{message}}
+
+   ═══════════════════════════════════════════════════════ */
+
+// ══════════════════════════════════════════
+//  ⚙️  CONFIGURE YOUR EMAILJS CREDENTIALS
+// ══════════════════════════════════════════
+const EMAILJS_PUBLIC_KEY   = 'YOUR_PUBLIC_KEY';      // From EmailJS dashboard → Account
+const EMAILJS_SERVICE_ID   = 'YOUR_SERVICE_ID';      // From EmailJS dashboard → Email Services
+const EMAILJS_TEMPLATE_ADM = 'template_admission';   // Template for admission form
+const EMAILJS_TEMPLATE_CON = 'template_contact';     // Template for contact form
+const INSTITUTE_EMAIL      = 'nictprayagraj@gmail.com';
+// ══════════════════════════════════════════
+
+// ── GLOBALS ─────────────────────────────────
+let testiIdx = 0, testiPer = 3;
+const PAGES = ['home','about','courses','admission','gallery','downloads','contact'];
+
+// ── LOADER ──────────────────────────────────
+
+
+// ── CUSTOM CURSOR ────────────────────────────
+const cDot  = document.getElementById('cDot');
+const cRing = document.getElementById('cRing');
+let mx = -200, my = -200, rx = -200, ry = -200;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  cDot.style.left = mx + 'px'; cDot.style.top = my + 'px';
+  rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
+  cRing.style.left = rx + 'px'; cRing.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+function addHover(sel) {
+  document.querySelectorAll(sel).forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+  });
+}
+addHover('a, button, .mc, .cbig, .fac, .dl, .gi, .tarr, .gf-btn, .mob-link');
+
+// ── SCROLL EVENTS ────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 30);
+  document.getElementById('btt').classList.toggle('show', scrollY > 400);
+  const h = document.documentElement;
+  document.getElementById('scrollProg').style.width =
+    ((scrollY / (h.scrollHeight - h.clientHeight)) * 100) + '%';
+  checkReveals();
+});
+
+// ── REVEAL ON SCROLL ─────────────────────────
+function checkReveals() {
+  document.querySelectorAll('.sr:not(.vis)').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('vis');
+  });
+}
+function initReveal() {
+  checkReveals();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const bar = e.target.querySelector('.wyc-prog');
+        if (bar) bar.style.width = bar.dataset.w;
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.wyc').forEach(el => obs.observe(el));
+}
+
+// ── PARTICLE CANVAS ──────────────────────────
+function initParticles() {
+  const cv = document.getElementById('particles');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H, pts = [];
+  function resize() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 35; i++) {
+    pts.push({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.4 + 0.3, a: Math.random() * 0.45 + 0.1,
+      c: Math.random() > 0.5 ? '232,101,10' : '26,82,201'
+    });
+  }
+  (function frame() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.c},${p.a})`; ctx.fill();
+    });
+    for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+      const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+      const d = Math.sqrt(dx * dx + dy * dy);
+      if (d < 90) {
+        ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+        ctx.strokeStyle = `rgba(26,82,201,${0.06 * (1 - d / 90)})`; ctx.lineWidth = 0.5; ctx.stroke();
+      }
+    }
+    requestAnimationFrame(frame);
+  })();
+}
+
+// ── PAGE NAV ──────────────────────────────────
+function nav(name) {
+  PAGES.forEach(p => { const el = document.getElementById('page-' + p); if (el) el.classList.remove('active'); });
+  const page = document.getElementById('page-' + name);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.page === name));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => { checkReveals(); initReveal(); if (name === 'home') initCounters(); }, 120);
+}
+
+// ── MOBILE MENU ───────────────────────────────
+document.getElementById('ham').addEventListener('click', () => {
+  document.getElementById('mobDraw').classList.add('open');
+  document.getElementById('mobOv').classList.add('show');
+  document.getElementById('ham').classList.add('open');
+});
+function closeMob() {
+  document.getElementById('mobDraw').classList.remove('open');
+  document.getElementById('mobOv').classList.remove('show');
+  document.getElementById('ham').classList.remove('open');
+}
+
+// ── COUNTERS ─────────────────────────────────
+function initCounters() {
+  document.querySelectorAll('.cnt[data-n]').forEach(el => {
+    el.textContent = '0';
+    const target = parseInt(el.dataset.n), inc = target / 60;
+    let curr = 0;
+    const t = setInterval(() => {
+      curr = Math.min(curr + inc, target);
+      el.textContent = Math.floor(curr).toLocaleString();
+      if (curr >= target) clearInterval(t);
+    }, 24);
+  });
+}
+
+// ── TYPEWRITER ────────────────────────────────
+function startTypewriter() {
+  const el = document.getElementById('twTarget');
+  if (!el) return;
+  const lines = [
+    { t:'comment', v:'# NICT Prayagraj — Since 2010' },
+    { t:'empty' },
+    { t:'kw', v:'import', rest:' nict_skills as future' },
+    { t:'empty' },
+    { t:'class', v:'Student' },
+    { t:'prop', v:'  name', rest:' = "Your Name"' },
+    { t:'prop', v:'  goal', rest:' = "Great Career"' },
+    { t:'close', v:'' },
+    { t:'empty' },
+    { t:'def', v:'enroll_at_nict', rest:'():' },
+    { t:'body', v:'  learn', rest:'("ADCA / O Level")' },
+    { t:'body', v:'  practice', rest:'(hours=500)' },
+    { t:'body', v:'  return', rest:' "Dream Job 🚀"' },
+    { t:'empty' },
+    { t:'call', v:'enroll_at_nict', rest:'()' },
+    { t:'comment', v:'# Call: 91983 99234' },
+  ];
+  el.style.cssText = 'font-family:var(--mono);font-size:12.5px;line-height:1.9;color:rgba(255,255,255,.45)';
+  const colors = { comment:'#546e7a', kw:'#c792ea', class:'#82aaff', def:'#82aaff', prop:'rgba(255,255,255,.45)', body:'rgba(255,255,255,.45)', call:'#89ddff', close:'rgba(255,255,255,.45)' };
+  let li = 0, ci = 0, html = '';
+  function type() {
+    if (li >= lines.length) { setTimeout(() => { html=''; el.innerHTML=''; li=0; ci=0; type(); }, 2800); return; }
+    const line = lines[li];
+    if (line.t === 'empty') { html += '\n'; li++; ci = 0; setTimeout(type, 120); return; }
+    const full = (line.v||'') + (line.rest||'');
+    if (ci <= full.length) {
+      const partial = full.substring(0, ci), color = colors[line.t]||'rgba(255,255,255,.45)', kl = (line.v||'').length;
+      let display;
+      if (ci <= kl) { display = `<span style="color:${color}">${partial}</span>`; }
+      else {
+        const rc = line.t==='prop'?'#f78c6c':line.t==='body'?'#c3e88d':color;
+        display = `<span style="color:${color}">${line.v||''}</span><span style="color:${rc}">${full.substring(kl,ci)}</span>`;
+      }
+      el.innerHTML = html + display + '<span style="color:var(--orange2);animation:twBlink .7s step-end infinite">▌</span>';
+      ci++; setTimeout(type, ci%7===0?55:22);
+    } else {
+      const color = colors[line.t]||'rgba(255,255,255,.45)';
+      const rc = line.t==='prop'?'#f78c6c':'#c3e88d';
+      html += `<span style="color:${color}">${line.v||''}</span><span style="color:${rc}">${line.rest||''}</span>\n`;
+      li++; ci=0; setTimeout(type, li%4===0?180:60);
+    }
+  }
+  if (!document.getElementById('twStyle')) {
+    const s = document.createElement('style'); s.id='twStyle';
+    s.textContent='@keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}'; document.head.appendChild(s);
+  }
+  type();
+}
+
+// ── TESTIMONIALS ─────────────────────────────
+function buildTestiDots() {
+  const track = document.getElementById('testiTrack');
+  if (!track) return;
+  const total = track.children.length;
+  testiPer = window.innerWidth < 900 ? 1 : 3;
+  const slides = Math.ceil(total / testiPer);
+  const dotsEl = document.getElementById('testiDots');
+  if (!dotsEl) return;
+  dotsEl.innerHTML = '';
+  for (let i = 0; i < slides; i++) {
+    const d = document.createElement('div');
+    d.className = 'tdot' + (i===0?' on':'');
+    d.onclick = () => { testiIdx=i; moveTesti(); };
+    dotsEl.appendChild(d);
+  }
+}
+function moveTesti() {
+  const track = document.getElementById('testiTrack');
+  if (!track || !track.children.length) return;
+  const w = track.children[0].offsetWidth + 24;
+  track.style.transform = `translateX(-${testiIdx * w * testiPer}px)`;
+  document.querySelectorAll('.tdot').forEach((d,i) => d.classList.toggle('on', i===testiIdx));
+}
+function slideTesti(dir) {
+  testiPer = window.innerWidth < 900 ? 1 : 3;
+  const track = document.getElementById('testiTrack');
+  if (!track) return;
+  const maxIdx = Math.ceil(track.children.length / testiPer) - 1;
+  testiIdx = Math.max(0, Math.min(testiIdx + dir, maxIdx));
+  moveTesti();
+}
+window.addEventListener('resize', () => { buildTestiDots(); moveTesti(); });
+setInterval(() => slideTesti(1), 5500);
+
+// ── GALLERY ──────────────────────────────────
+function filterGal(cat, btn) {
+  document.querySelectorAll('.gf-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.gi').forEach(el => {
+    const show = cat==='all' || el.classList.contains(cat);
+    if (show) {
+      el.classList.remove('hidden');
+      el.style.opacity='0'; el.style.transform='scale(.9)';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.transition='all .4s ease'; el.style.opacity='1'; el.style.transform='scale(1)';
+      }));
+    } else { el.classList.add('hidden'); }
+  });
+}
+function openLB(el, cap) {
+  const lbImg = document.getElementById('lbImg');
+  lbImg.innerHTML = '';
+  const img = el.querySelector('.gi-img');
+  if (img) {
+    const bigImg = document.createElement('img');
+    bigImg.src = img.src;
+    bigImg.alt = img.alt;
+    bigImg.style.cssText = 'width:100%;height:100%;object-fit:contain;border-radius:12px;background:#000;';
+    lbImg.appendChild(bigImg);
+  }
+  document.getElementById('lbCap').textContent = cap || '';
+  document.getElementById('lbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  document.getElementById('lbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeLB(); });
+
+// ══════════════════════════════════════════════
+//  📧  ADMISSION FORM — sends email via EmailJS
+// ══════════════════════════════════════════════
+function submitAdm(e) {
+  e.preventDefault();
+  // Clear previous errors
+  ['fn','ph','em','co','ad'].forEach(id => {
+    document.getElementById(id)?.classList.remove('err');
+    const er = document.getElementById(id+'E'); if (er) er.textContent='';
+  });
+
+  let ok = true;
+  const v = id => document.getElementById(id)?.value.trim()||'';
+  const setErr = (id, msg) => {
+    document.getElementById(id)?.classList.add('err');
+    const er = document.getElementById(id+'E'); if (er) er.textContent=msg; ok=false;
+  };
+
+  if (v('fn').length < 2)    setErr('fn','Please enter your full name');
+  if (!/^[\+\d\s\-]{7,15}$/.test(v('ph').replace(/\s/g,''))) setErr('ph','Enter a valid phone number');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('em'))) setErr('em','Enter a valid email address');
+  if (!v('co'))              setErr('co','Please select a course');
+  if (v('ad').length < 5)   setErr('ad','Please enter your address');
+  if (!document.getElementById('tc')?.checked) { toast('⚠️ Please agree to Terms & Conditions','warn'); ok=false; }
+  if (!ok) return;
+
+  // Disable button & show loading
+  const btn = document.getElementById('subBtn');
+  const txt = document.getElementById('subTxt');
+  btn.disabled = true;
+  txt.textContent = '⏳ Sending...';
+
+  const params = {
+    student_name:  v('fn'),
+    student_phone: v('ph'),
+    student_email: v('em'),
+    course:        document.getElementById('co')?.options[document.getElementById('co').selectedIndex]?.text || v('co'),
+    qualification: document.getElementById('qu')?.value || '—',
+    address:       v('ad'),
+    message:       v('ms') || '—',
+    to_email:      INSTITUTE_EMAIL,
+    reply_to:      v('em'),
+  };
+
+  function onSuccess() {
+    const ref = 'NICT-' + new Date().getFullYear() + '-' + Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('refId').textContent = ref;
+    document.getElementById('admForm').style.display='none';
+    document.getElementById('admSuccess').style.display='block';
+    confetti();
+    toast('🎉 Application submitted! We will contact you soon.','success');
+  }
+
+  function onFail(err) {
+    console.warn('EmailJS error:', err);
+    // Still show success to user (fallback to mailto)
+    const subject = encodeURIComponent('Admission Enquiry — ' + v('fn'));
+    const body = encodeURIComponent(
+      `Name: ${v('fn')}\nPhone: ${v('ph')}\nEmail: ${v('em')}\nCourse: ${v('co')}\nAddress: ${v('ad')}\nMessage: ${v('ms')}`
+    );
+    window.location.href = `mailto:${INSTITUTE_EMAIL}?subject=${subject}&body=${body}`;
+    onSuccess();
+  }
+
+  if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ADM, params)
+      .then(onSuccess, onFail);
+  } else {
+    // Fallback: open mailto if EmailJS not configured yet
+    setTimeout(() => {
+      const subject = encodeURIComponent('Admission Enquiry — ' + v('fn'));
+      const body = encodeURIComponent(
+        `New Admission Enquiry from NICT Website\n\nName: ${v('fn')}\nPhone: ${v('ph')}\nEmail: ${v('em')}\nCourse: ${params.course}\nQualification: ${params.qualification}\nAddress: ${v('ad')}\nMessage: ${v('ms') || '—'}`
+      );
+      window.open(`mailto:${INSTITUTE_EMAIL}?subject=${subject}&body=${body}`);
+      onSuccess();
+    }, 1000);
+  }
+}
+
+function resetAdm() {
+  document.getElementById('admForm').style.display='block';
+  document.getElementById('admSuccess').style.display='none';
+  document.querySelector('#admForm form').reset();
+  document.getElementById('subTxt').textContent='Submit Application →';
+  document.getElementById('subBtn').disabled=false;
+  ['fn','ph','em','co','ad'].forEach(id => {
+    document.getElementById(id)?.classList.remove('err');
+    const er = document.getElementById(id+'E'); if (er) er.textContent='';
+  });
+}
+
+// ══════════════════════════════════════════════
+//  📧  CONTACT FORM — sends email via EmailJS
+// ══════════════════════════════════════════════
+function submitCon(e) {
+  e.preventDefault();
+  const nm  = document.getElementById('cNm')?.value.trim();
+  const ph  = document.getElementById('cPh')?.value.trim();
+  const em  = document.getElementById('cEm')?.value.trim();
+  const sub = document.getElementById('cSub')?.value;
+  const ms  = document.getElementById('cMsg')?.value.trim();
+
+  if (!nm || !ph || !em || !ms) { toast('⚠️ Please fill all required fields','warn'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { toast('⚠️ Enter a valid email address','warn'); return; }
+
+  const btn = e.submitter||e.target.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent='⏳ Sending...'; btn.disabled=true;
+
+  const params = {
+    from_name:  nm,
+    phone:      ph,
+    from_email: em,
+    subject:    sub||'General Enquiry',
+    message:    ms,
+    to_email:   INSTITUTE_EMAIL,
+    reply_to:   em,
+  };
+
+  function onSuccess() {
+    e.target.reset();
+    btn.textContent=orig; btn.disabled=false;
+    toast('✅ Message sent! We\'ll respond within 24 hours.','success');
+  }
+
+  function onFail(err) {
+    console.warn('EmailJS error:', err);
+    // Fallback to mailto
+    const mailSub = encodeURIComponent('Website Enquiry — ' + nm);
+    const mailBody = encodeURIComponent(`Name: ${nm}\nPhone: ${ph}\nEmail: ${em}\nSubject: ${sub}\nMessage: ${ms}`);
+    window.open(`mailto:${INSTITUTE_EMAIL}?subject=${mailSub}&body=${mailBody}`);
+    btn.textContent=orig; btn.disabled=false;
+    toast('📧 Opening your email app to send the message.','success');
+  }
+
+  if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_CON, params)
+      .then(onSuccess, onFail);
+  } else {
+    // Fallback: open mailto
+    setTimeout(() => {
+      const mailSub = encodeURIComponent('Website Enquiry — ' + nm);
+      const mailBody = encodeURIComponent(`New Enquiry from NICT Website\n\nName: ${nm}\nPhone: ${ph}\nEmail: ${em}\nSubject: ${sub||'General'}\nMessage: ${ms}`);
+      window.open(`mailto:${INSTITUTE_EMAIL}?subject=${mailSub}&body=${mailBody}`);
+      onSuccess();
+    }, 800);
+  }
+}
+
+// ── DOWNLOADS ─────────────────────────────────
+function doDownload(fn) {
+  toast('⬇️ Downloading ' + fn + '...','info');
+  setTimeout(() => toast('✅ ' + fn + ' ready!','success'), 2200);
+}
+
+// ── TOAST ─────────────────────────────────────
+function toast(msg, type='info') {
+  const el = document.getElementById('toast');
+  // Color accent based on type
+  const colors = { success:'#22c55e', warn:'#f59e0b', error:'#ef4444', info:'var(--orange)' };
+  el.style.borderLeftColor = colors[type]||colors.info;
+  el.innerHTML = msg;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 4000);
+}
+
+// ── CONFETTI ──────────────────────────────────
+function confetti() {
+  const colors=['#e8650a','#f97316','#f59e0b','#1a52c9','#2563eb','#fbbf24','#22c55e'];
+  for (let i=0;i<90;i++) {
+    const el=document.createElement('div');
+    const sz=Math.random()*9+4;
+    el.style.cssText=`position:fixed;top:-10px;left:${Math.random()*100}vw;width:${sz}px;height:${sz}px;background:${colors[~~(Math.random()*colors.length)]};border-radius:${Math.random()>.5?'50%':'2px'};z-index:99995;pointer-events:none;animation:cfFall ${Math.random()*2+1.2}s ease-in forwards;animation-delay:${Math.random()*.6}s`;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),3500);
+  }
+  if (!document.getElementById('cfStyle')) {
+    const s=document.createElement('style'); s.id='cfStyle';
+    s.textContent='@keyframes cfFall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(540deg);opacity:0}}';
+    document.head.appendChild(s);
+  }
+}
+
+// ── MAGNETIC BUTTONS ─────────────────────────
+function initMagneticBtns() {
+  document.querySelectorAll('.btn-pr, .btn-sec, .nav-enroll').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r=btn.getBoundingClientRect();
+      const x=(e.clientX-r.left-r.width/2)*0.22, y=(e.clientY-r.top-r.height/2)*0.22;
+      btn.style.transform=`translate(${x}px,${y}px) translateY(-3px)`;
+    });
+    btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
+  });
+}
+
+// ── FORM LIVE VALIDATION ─────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Init everything immediately — no loader needed
+  try { initParticles(); } catch(e) {}
+  try { initCounters(); } catch(e) {}
+  try { initReveal(); } catch(e) {}
+  try { buildTestiDots(); } catch(e) {}
+  try { startTypewriter(); } catch(e) {}
+  try { initMagneticBtns(); } catch(e) {}
+  try {
+    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    }
+  } catch(e) {}
+
+  ['fn','ph','em','co','ad'].forEach(id => {
+    const el=document.getElementById(id); if (!el) return;
+    el.addEventListener('input', () => {
+      if (el.classList.contains('err') && el.value.trim()) {
+        el.classList.remove('err');
+        const er=document.getElementById(id+'E'); if (er) er.textContent='';
+      }
+    });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key==='ArrowLeft') slideTesti(-1);
+    if (e.key==='ArrowRight') slideTesti(1);
+  });
+});
+
+</script>
+</body>
+</html>
